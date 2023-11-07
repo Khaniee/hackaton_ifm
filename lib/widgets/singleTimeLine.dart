@@ -4,14 +4,20 @@ import 'package:hackaton_ifm/widgets/timelineCard.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class SingleTimeLine extends StatefulWidget {
-  SingleTimeLine(
-      {super.key,
-      this.is_first = false,
-      this.is_last = false,
-      this.is_step = false});
+  SingleTimeLine({
+    super.key,
+    this.is_first = false,
+    this.is_last = false,
+    this.is_step = false,
+    this.image = "",
+    required this.title,
+  });
   bool is_first;
   bool is_step;
   bool is_last;
+  String image;
+  String title;
+
   @override
   State<SingleTimeLine> createState() => _SingleTimeLineState();
 }
@@ -41,21 +47,26 @@ class _SingleTimeLineState extends State<SingleTimeLine> {
             ? Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Container(
-                  margin: const EdgeInsets.all(25),
-                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   decoration: BoxDecoration(
                     color: Colors.deepPurple.shade200,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    "Devenir Développeur Informatique",
-                    style: TextStyle(
+                    widget.title,
+                    style: const TextStyle(
                       color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               )
-            : TimeLineCard(),
+            : TimeLineCard(
+                image: widget.image,
+                title: widget.title,
+              ),
       ),
     );
   }

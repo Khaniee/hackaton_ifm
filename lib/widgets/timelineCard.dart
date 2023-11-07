@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TimeLineCard extends StatefulWidget {
-  const TimeLineCard({super.key});
+  const TimeLineCard({super.key, required this.image, required this.title});
+  final String image;
+  final String title;
 
   @override
   State<TimeLineCard> createState() => _TimeLineCardState();
@@ -18,30 +20,32 @@ class _TimeLineCardState extends State<TimeLineCard> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: 140,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(8), topRight: Radius.circular(8)),
                 color: Colors.white,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/images/victory.jpg"),
+                  image: AssetImage("assets/images/${widget.image}"),
                 )),
           ),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
           Container(
+            padding: const EdgeInsets.only(left: 20),
             child: Text(
-              "Gagnant du hackaton FrontEnd Awards",
-              style: TextStyle(
+              widget.title,
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
             ),
           ),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
         ],
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/data/TimeLineData.dart';
 import 'package:hackaton_ifm/widgets/singleTimeLine.dart';
 import 'package:indexed/indexed.dart';
+import 'package:rive/rive.dart';
 
 class TimeLineScreen extends StatefulWidget {
   const TimeLineScreen({super.key});
@@ -10,6 +12,11 @@ class TimeLineScreen extends StatefulWidget {
 }
 
 class _TimeLineState extends State<TimeLineScreen> {
+  List timelineData = TimeLineData.get();
+
+  StateMachineController? controller;
+  SMIInput<double>? inputValue;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +31,41 @@ class _TimeLineState extends State<TimeLineScreen> {
                   height: 200,
                   width: double.maxFinite,
                   color: Colors.deepPurple.shade100,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Indexer(
                     children: [
-                      Text(
-                        "Voyager à travers le monde",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
+                      Indexed(
+                        index: 1,
+                        child: Container(
+                          height: 200,
+                          child: RiveAnimation.asset(
+                            "assets/images/treedemo.riv",
+                            fit: BoxFit.fitHeight,
+                            onInit: (artboard) {
+                              controller = StateMachineController.fromArtboard(
+                                artboard,
+                                "Grow",
+                              );
+                              if (controller != null) {
+                                artboard.addController(controller!);
+                                inputValue = controller?.findInput("input");
+                                inputValue?.change(50);
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      const Indexed(
+                        index: 2,
+                        child: Center(
+                          child: Text(
+                            "Voyager à travers le monde",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -58,25 +91,21 @@ class _TimeLineState extends State<TimeLineScreen> {
             index: 1,
             child: Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 35),
+                padding: const EdgeInsets.only(left: 35, top: 160),
                 child: ListView(
-                  children: [
-                    SingleTimeLine(
-                      is_first: true,
-                      is_step: true,
-                    ),
-                    SingleTimeLine(
-                      is_step: true,
-                    ),
-                    SingleTimeLine(),
-                    SingleTimeLine(),
-                    SingleTimeLine(),
-                    SingleTimeLine(
-                      is_last: true,
-                      is_step: true,
-                    ),
-                  ],
-                ),
+                    children: List.generate(timelineData.length, (index) {
+                  // if(timelineData[index]["type"] == "step"){
+                  return SingleTimeLine(
+                    title: timelineData[index]["title"],
+                    image: timelineData[index]["type"] != "step"
+                        ? timelineData[index]["image"]
+                        : "",
+                    // is_first: index == 0,
+                    is_last: index == timelineData.length - 1,
+                    is_step: timelineData[index]["type"] == "step",
+                  );
+                  // }
+                })),
               ),
             ),
           ),
