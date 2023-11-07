@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/layouts/desktop_layout.dart';
 import 'package:hackaton_ifm/layouts/mobile_layout.dart';
 import 'package:hackaton_ifm/layouts/responsive_layout.dart';
+import 'package:hackaton_ifm/screens/timeLineScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,10 +21,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
-      home: const ResponsiveLayout(
-        mobileScaffold: MobileLayout(title: "Mobile"),
-        desktopScaffold: DesktopLayout(title: "Mobile but desktop"),
-      ),
+      // home: const ResponsiveLayout(
+      //   mobileScaffold: MobileLayout(title: "Mobile"),
+      //   desktopScaffold: DesktopLayout(title: "Mobile but desktop"),
+      // ),
+      home: const TimeLineScreen(),
     );
   }
 }
