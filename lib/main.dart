@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/screens/timeLine.dart';
+import 'package:hackaton_ifm/screens/timeLineScreen.dart';
 
 void main() {
   runApp(const MyApp());

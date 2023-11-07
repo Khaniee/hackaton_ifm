@@ -24,9 +24,6 @@ class _SingleTimeLineState extends State<SingleTimeLine> {
       child: TimelineTile(
         isFirst: widget.is_first,
         isLast: widget.is_last,
-        afterLineStyle: LineStyle(
-          color: Colors.deepPurple.shade100,
-        ),
         beforeLineStyle: LineStyle(
           color: Colors.deepPurple.shade100,
         ),
