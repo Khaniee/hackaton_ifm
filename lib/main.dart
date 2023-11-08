@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Hackaton IFM',
       theme: ThemeData(
-        useMaterial3: true,
+        // useMaterial3: true,
         scaffoldBackgroundColor: AppColor.offWhite,
       ),
       home: const ScaffoldWithBottomNavbar(),
