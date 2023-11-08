@@ -1,97 +1,131 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/screens/formation_list_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:indexed/indexed.dart';
+import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 
-class WhoAmISummaryScreen extends StatelessWidget {
+class WhoAmISummaryScreen extends StatefulWidget {
   const WhoAmISummaryScreen({super.key});
 
   @override
+  State<WhoAmISummaryScreen> createState() => _WhoAmISummaryScreenState();
+}
+
+class _WhoAmISummaryScreenState extends State<WhoAmISummaryScreen> {
+  final controller = ConfettiController();
+  @override
+  void initState() {
+    super.initState();
+    controller.play();
+    Future.delayed(Duration(seconds: 2), () {
+      // code to be executed after 2 seconds
+      controller.stop();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColor.offWhite,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Iconsax.arrow_left_2,
-            color: AppColor.primary,
+    controller.play();
+
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColor.offWhite,
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(
+                Iconsax.arrow_left_2,
+                color: AppColor.primary,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: const SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
+          body: SafeArea(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Icon(
-                      Iconsax.medal_star5,
-                      color: AppColor.primary,
-                      size: 120,
+                    Column(
+                      children: [
+                        Lottie.asset(
+                          'assets/images/animationCongrats.json',
+                          height: 160,
+                          reverse: true,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const AppText(
+                          "Félicitations! Vous avez fini le test",
+                          color: AppColor.primary,
+                          fontSize: AppFontSize.extraLarge,
+                          isBold: true,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Center(
+                          child: AppText(
+                            "Nos études nous montre que vous allez excellez dans ces carrières!",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: 10,
+                    const SizedBox(
+                      height: 50,
                     ),
-                    AppText(
-                      "Félicitations! Vous avez finis le test",
-                      color: AppColor.primary,
-                      fontSize: AppFontSize.extraLarge,
-                      isBold: true,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: AppText(
-                        "Nos études nous montre que vous allez excellez dans ces carrières!",
-                        textAlign: TextAlign.center,
+                    const ProfessionCard(),
+                    const Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Divider(
+                        thickness: 1,
                       ),
+                    ),
+                    const ProfessionCard(),
+                    const Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Divider(
+                        thickness: 1,
+                      ),
+                    ),
+                    const ProfessionCard(),
+                    const Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Divider(
+                        thickness: 1,
+                      ),
+                    ),
+                    const ProfessionCard(),
+                    const SizedBox(
+                      height: 50,
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 50,
-                ),
-                ProfessionCard(),
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Divider(
-                    thickness: 1,
-                  ),
-                ),
-                ProfessionCard(),
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Divider(
-                    thickness: 1,
-                  ),
-                ),
-                ProfessionCard(),
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Divider(
-                    thickness: 1,
-                  ),
-                ),
-                ProfessionCard(),
-                SizedBox(
-                  height: 50,
-                ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
+        Expanded(
+          child: ConfettiWidget(
+            emissionFrequency: 0.03,
+            confettiController: controller,
+            blastDirectionality: BlastDirectionality.explosive,
+          ),
+        ),
+      ],
     );
   }
 }
