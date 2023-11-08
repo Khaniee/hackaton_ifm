@@ -9,17 +9,20 @@ class AppText extends StatelessWidget {
     this.color = AppColor.textColor,
     this.fontSize = AppFontSize.medium,
     this.isBold = false,
+    this.textAlign = TextAlign.left,
   });
 
   final String data;
   final Color color;
   final double fontSize;
   final bool isBold;
+  final TextAlign textAlign;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       data,
+      textAlign: textAlign,
       style: TextStyle(
           color: color,
           fontSize: fontSize,

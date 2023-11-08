@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: const Icon(Iconsax.message_add),
       ),
       body: SafeArea(
