@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/layouts/desktop_layout.dart';
-import 'package:hackaton_ifm/layouts/mobile_layout.dart';
-import 'package:hackaton_ifm/layouts/responsive_layout.dart';
-import 'package:hackaton_ifm/screens/timeLineScreen.dart';
+import 'package:hackaton_ifm/layouts/scaffold_with_bottom_navbar.dart';
+import 'package:hackaton_ifm/utils/color.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,16 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Hackaton IFM',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
+        scaffoldBackgroundColor: AppColor.offWhite,
       ),
-      // home: const ResponsiveLayout(
-      //   mobileScaffold: MobileLayout(title: "Mobile"),
-      //   desktopScaffold: DesktopLayout(title: "Mobile but desktop"),
-      // ),
-      home: const TimeLineScreen(),
+      home: const ScaffoldWithBottomNavbar(),
     );
   }
 }
