@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/screens/createAcountScreen.dart';
+import 'package:hackaton_ifm/screens/loginScreen.dart';
 import 'package:hackaton_ifm/screens/timeLineScreen.dart';
 
 void main() {
@@ -14,11 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
-        useMaterial3: true,
-      ),
-      home: const TimeLineScreen(),
+      home: TimeLineScreen(),
     );
   }
 }
