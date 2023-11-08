@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/screens/whoami_summary_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
-import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -38,11 +38,12 @@ class WhoAmIScreen extends StatelessWidget {
               Image.asset("assets/images/quiz_app.png"),
               SizedBox(
                 height: 50,
-                width: 300,
+                width: double.maxFinite,
                 child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColor.darkPrimary,
                       foregroundColor: AppColor.white,
+                      shape: const StadiumBorder(),
                     ),
                     onPressed: () {},
                     icon: const Icon(Iconsax.play),
@@ -50,13 +51,20 @@ class WhoAmIScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: 50,
-                width: 300,
+                width: double.maxFinite,
                 child: OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
                       backgroundColor: AppColor.white,
                       foregroundColor: AppColor.darkPrimary,
+                      shape: const StadiumBorder(),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const WhoAmISummaryScreen(),
+                        ),
+                      );
+                    },
                     icon: const Icon(Iconsax.clock),
                     label: const Text("Voir dernier résultat")),
               )
