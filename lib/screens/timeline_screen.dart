@@ -58,10 +58,10 @@ class _TimeLineState extends State<TimelineScreen> {
                         index: 2,
                         child: Center(
                           child: Text(
-                            "Voyager à travers le monde",
+                            "Construire une entreprise",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black54,
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
                             ),
