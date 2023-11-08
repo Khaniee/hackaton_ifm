@@ -4,14 +4,14 @@ import 'package:hackaton_ifm/widgets/singleTimeLine.dart';
 import 'package:indexed/indexed.dart';
 import 'package:rive/rive.dart';
 
-class TimeLineScreen extends StatefulWidget {
-  const TimeLineScreen({super.key});
+class TimelineScreen extends StatefulWidget {
+  const TimelineScreen({super.key});
 
   @override
-  State<TimeLineScreen> createState() => _TimeLineState();
+  State<TimelineScreen> createState() => _TimeLineState();
 }
 
-class _TimeLineState extends State<TimeLineScreen> {
+class _TimeLineState extends State<TimelineScreen> {
   List timelineData = TimeLineData.get();
 
   StateMachineController? controller;

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/screens/createAcountScreen.dart';
 import 'package:hackaton_ifm/screens/loginScreen.dart';
 import 'package:hackaton_ifm/screens/timeLineScreen.dart';
+import 'package:hackaton_ifm/layouts/scaffold_with_bottom_navbar.dart';
+import 'package:hackaton_ifm/utils/color.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +15,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: TimeLineScreen(),
+      title: 'Hackaton IFM',
+      theme: ThemeData(
+        useMaterial3: true,
+        scaffoldBackgroundColor: AppColor.offWhite,
+      ),
+      home: const ScaffoldWithBottomNavbar(),
     );
   }
 }
