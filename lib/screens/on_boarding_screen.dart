@@ -31,6 +31,7 @@ class _WelcomePageState extends State<WelcomePage> {
             controller: _controller,
             children: [
               Container(
+                color: Colors.white,
                 width: double.maxFinite,
                 height: double.maxFinite,
                 child: const RiveAnimation.asset(
@@ -50,11 +51,13 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ),
               Container(
+                color: const Color.fromRGBO(195, 72, 84, 1),
                 width: double.maxFinite,
                 height: double.maxFinite,
                 child: RiveAnimation.asset("assets/images/variation.riv"),
               ),
               Container(
+                color: const Color.fromRGBO(70, 46, 84, 1),
                 width: double.maxFinite,
                 height: double.maxFinite,
                 child: RiveAnimation.asset("assets/images/rocket.riv"),

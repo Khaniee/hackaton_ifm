@@ -37,15 +37,16 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: AppColor.offWhite,
       ),
       home: Scaffold(
-        backgroundColor: Color(0xff462e54),
-        body: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-          ),
-          child: RiveAnimation.asset(
-            "assets/images/rocket.riv",
-          ),
-        ),
+        // backgroundColor: Color(0xff462e54),
+        // body: Container(
+        //   decoration: BoxDecoration(
+        //     shape: BoxShape.circle,
+        //   ),
+        //   child: RiveAnimation.asset(
+        //     "assets/images/rocket.riv",
+        //   ),
+        // ),
+        body: WelcomePage(),
       ),
     );
   }
