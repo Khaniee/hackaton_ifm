@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/screens/createAcountScreen.dart';
 import 'package:hackaton_ifm/screens/loginScreen.dart';
+import 'package:hackaton_ifm/screens/on_boarding_screen.dart';
 import 'package:hackaton_ifm/screens/timeLine_screen.dart';
 import 'package:hackaton_ifm/layouts/scaffold_with_bottom_navbar.dart';
 import 'package:hackaton_ifm/utils/color.dart';
@@ -36,15 +37,16 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: AppColor.offWhite,
       ),
       home: Scaffold(
-        backgroundColor: Color(0xff462e54),
-        body: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-          ),
-          child: RiveAnimation.asset(
-            "assets/images/rocket.riv",
-          ),
-        ),
+        // backgroundColor: Color(0xff462e54),
+        // body: Container(
+        //   decoration: BoxDecoration(
+        //     shape: BoxShape.circle,
+        //   ),
+        //   child: RiveAnimation.asset(
+        //     "assets/images/rocket.riv",
+        //   ),
+        // ),
+        body: WelcomePage(),
       ),
     );
   }

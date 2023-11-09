@@ -9,4 +9,5 @@ class AppColor {
   static const Color offWhite = Color(0xfff3f3f7);
   static const Color divider = Color(0xffbdbdbd);
   static const Color textColor = Color(0xff757575);
+  static const Color middlePrimary = Color.fromRGBO(122, 115, 231, 1);
 }
