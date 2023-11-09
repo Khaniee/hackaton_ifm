@@ -30,8 +30,6 @@ class _WhoAmISummaryScreenState extends State<WhoAmISummaryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    controller.play();
-
     return Stack(
       alignment: Alignment.center,
       children: [

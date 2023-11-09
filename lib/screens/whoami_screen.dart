@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/screens/testPersonnalite.dart';
 import 'package:hackaton_ifm/screens/whoami_summary_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
@@ -45,8 +46,14 @@ class WhoAmIScreen extends StatelessWidget {
                       foregroundColor: AppColor.white,
                       shape: const StadiumBorder(),
                     ),
-                    onPressed: () {},
                     icon: const Icon(Iconsax.play),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const TestPersonnaliteScreen(),
+                        ),
+                      );
+                    },
                     label: const Text("Commencer le test")),
               ),
               SizedBox(

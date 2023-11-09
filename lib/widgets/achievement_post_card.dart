@@ -3,6 +3,7 @@ import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/core.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lottie/lottie.dart';
 
 class AchievementPostCard extends StatelessWidget {
   const AchievementPostCard({
@@ -91,15 +92,23 @@ class AchievementPostCard extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  Icon(Iconsax.heart),
-                  SizedBox(
-                    width: 10,
+                  Lottie.asset(
+                    'assets/images/heart_clicked.json',
+                    height: 40,
+                    // reverse: true,
+                    // fit: BoxFit.fill,
                   ),
+
+                  // Icon(Iconsax.heart),
+
+                  // SizedBox(
+                  //   width: 10,
+                  // ),
                   AppText("1,234"),
                 ],
               ),
