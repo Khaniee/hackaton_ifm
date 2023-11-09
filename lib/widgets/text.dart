@@ -10,6 +10,8 @@ class AppText extends StatelessWidget {
     this.fontSize = AppFontSize.medium,
     this.isBold = false,
     this.textAlign = TextAlign.left,
+    this.softWrap = true,
+    this.overflow = TextOverflow.clip,
   });
 
   final String data;
@@ -17,12 +19,16 @@ class AppText extends StatelessWidget {
   final double fontSize;
   final bool isBold;
   final TextAlign textAlign;
+  final bool softWrap;
+  final TextOverflow overflow;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       data,
       textAlign: textAlign,
+      softWrap: softWrap,
+      overflow: overflow,
       style: TextStyle(
           color: color,
           fontSize: fontSize,
