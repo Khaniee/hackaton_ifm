@@ -45,6 +45,7 @@ dependencies:
   confetti : ^0.7.0
   percent_indicator: ^4.0.1
   smooth_page_indicator : ^1.0.0
+  url_launcher: ^6.2.1
 
 dev_dependencies:
   flutter_test:
