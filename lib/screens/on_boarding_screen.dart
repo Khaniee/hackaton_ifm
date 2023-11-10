@@ -88,7 +88,8 @@ class _WelcomePageState extends State<WelcomePage> {
                 children: [
                   Container(
                     // color: const Color.fromRGBO(70, 46, 84, 1),
-                    color: const Color.fromRGBO(56, 0, 59, 1),
+                    // color: const Color.fromRGBO(56, 0, 59, 1),
+                    color: AppColor.purple,
 
                     width: double.maxFinite,
                     height: double.maxFinite,
@@ -121,6 +122,20 @@ class _WelcomePageState extends State<WelcomePage> {
                                 },
                               ),
                             ),
+                            Container(
+                              width: double.maxFinite,
+                              height: MediaQuery.of(context).size.height / 1.5,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    color: AppColor.purple,
+                                    height: 50,
+                                    width: double.maxFinite,
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                         // const SizedBox(

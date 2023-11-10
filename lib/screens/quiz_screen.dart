@@ -29,7 +29,7 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(185, 240, 142, 1),
+      // backgroundColor: const Color.fromRGBO(185, 240, 142, 1),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -58,22 +58,41 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             ),
           ),
-          Container(
-            width: double.maxFinite,
-            height: 400,
-            child: RiveAnimation.asset(
-              "assets/images/squat.riv",
-              onInit: (artboard) {
-                controller3 = StateMachineController.fromArtboard(
-                  artboard,
-                  "Don't Skip Leg Day",
-                );
-                if (controller3 != null) {
-                  artboard.addController(controller3!);
-                  _bump = controller3!.findInput<bool>('Squat') as SMITrigger;
-                }
-              },
-            ),
+          Stack(
+            children: [
+              Container(
+                width: double.maxFinite,
+                height: 400,
+                child: RiveAnimation.asset(
+                  "assets/images/lumberjack_squats.riv",
+                  onInit: (artboard) {
+                    controller3 = StateMachineController.fromArtboard(
+                      artboard,
+                      "Don't Skip Leg Day",
+                    );
+                    if (controller3 != null) {
+                      artboard.addController(controller3!);
+                      _bump =
+                          controller3!.findInput<bool>('Squat') as SMITrigger;
+                    }
+                  },
+                ),
+              ),
+              Container(
+                width: double.maxFinite,
+                height: 400,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      color: const Color.fromRGBO(243, 243, 247, 1),
+                      height: 50,
+                      width: double.maxFinite,
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),

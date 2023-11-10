@@ -4,6 +4,7 @@ import 'package:hackaton_ifm/screens/whoami_summary_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lottie/lottie.dart';
 
 class WhoAmIScreen extends StatelessWidget {
   const WhoAmIScreen({super.key});
@@ -13,68 +14,95 @@ class WhoAmIScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          color: AppColor.white,
+          // padding: const EdgeInsets.all(20),
+          child: Stack(
             children: [
-              const Column(
-                children: [
-                  AppText(
-                    "Qui-Suis-Je ?",
-                    color: AppColor.primary,
-                    fontSize: 56,
-                    isBold: true,
+              Center(
+                child: Container(
+                  width: double.maxFinite,
+                  // height: 200,
+                  child: Lottie.asset(
+                    'assets/images/lottie1.json',
+                    reverse: true,
+                    fit: BoxFit.contain,
                   ),
-                  Center(
-                    child: AppText(
-                      "100+ formations à découvrir selon vos personnalité et compétences!",
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
+                ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Image.asset("assets/images/quiz_app.png"),
-              SizedBox(
-                height: 50,
-                width: double.maxFinite,
-                child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.darkPrimary,
-                      foregroundColor: AppColor.white,
-                      shape: const StadiumBorder(),
-                    ),
-                    icon: const Icon(Iconsax.play),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const TestPersonnaliteScreen(),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Column(
+                      children: [
+                        SizedBox(
+                          height: 20,
                         ),
-                      );
-                    },
-                    label: const Text("Commencer le test")),
-              ),
-              SizedBox(
-                height: 50,
-                width: double.maxFinite,
-                child: OutlinedButton.icon(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: AppColor.white,
-                      foregroundColor: AppColor.darkPrimary,
-                      shape: const StadiumBorder(),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const WhoAmISummaryScreen(),
+                        AppText(
+                          "Qui-Suis-Je ?",
+                          color: AppColor.primary,
+                          fontSize: 56,
+                          isBold: true,
                         ),
-                      );
-                    },
-                    icon: const Icon(Iconsax.clock),
-                    label: const Text("Voir dernier résultat")),
-              )
+                        Center(
+                          child: AppText(
+                            "100+ formations à découvrir selon vos personnalité et compétences!",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(child: SizedBox()),
+                    SizedBox(
+                      height: 50,
+                      width: double.maxFinite,
+                      child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColor.darkPrimary,
+                            foregroundColor: AppColor.white,
+                            shape: const StadiumBorder(),
+                          ),
+                          icon: const Icon(Iconsax.play),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const TestPersonnaliteScreen(),
+                              ),
+                            );
+                          },
+                          label: const Text("Commencer le test")),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      width: double.maxFinite,
+                      child: OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: AppColor.white,
+                            foregroundColor: AppColor.darkPrimary,
+                            shape: const StadiumBorder(),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const WhoAmISummaryScreen(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Iconsax.clock),
+                          label: const Text("Voir dernier résultat")),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
