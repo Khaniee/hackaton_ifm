@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/data/QuizPersonnalite.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/response_elt.dart';
 import 'package:iconsax/iconsax.dart';
@@ -12,6 +13,10 @@ class QuizBonneConduite extends StatefulWidget {
 }
 
 class _QuizBonneConduiteState extends State<QuizBonneConduite> {
+  final List quizData = QuizData.get();
+  int selected_quiz = 0;
+  int? correct_index;
+  bool en_correction = false;
   final reponses = [
     "Féliciter les amis et faire mieux la prochaine fois",
     "Leur donner une gifle"
@@ -115,11 +120,11 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
                     ),
                     Container(
                       width: 350,
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          "Vous avez participé à un hackaton, vous avez perdu contre vos amis. Dans cette situation, que ferez-vous ? ",
+                          quizData[selected_quiz]["question"],
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                               color: Colors.black45),
@@ -130,17 +135,28 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
                       height: 30,
                     ),
                     Column(
-                      children: List.generate(reponses.length, (index) {
+                      children: List.generate(
+                          quizData[selected_quiz]["reponses"].length, (index) {
                         return Container(
                           height: 50,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           width: 350,
                           margin: const EdgeInsets.only(bottom: 15),
                           child: ResponseElt(
                             isSelected: selectedResponse == index,
-                            // isTrue: true,
-                            // isFalse: true,
-                            name: reponses[index],
+                            isTrue: correct_index == index
+                                ? en_correction == true
+                                    ? true
+                                    : false
+                                : false,
+                            isFalse: correct_index != index
+                                ? correct_index != null
+                                    ? selectedResponse == index
+                                        ? en_correction == true
+                                        : false
+                                    : false
+                                : false,
+                            name: quizData[selected_quiz]["reponses"][index],
                             onTap: () {
                               setState(() {
                                 selectedResponse = index;
@@ -164,7 +180,35 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
                           backgroundColor: AppColor.middlePrimary,
                           shape: const StadiumBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (selectedResponse != null) {
+                            // corriger reponse
+                            if (en_correction == false) {
+                              int index_vrai =
+                                  quizData[selected_quiz]["correctIndex"];
+                              setState(() {
+                                correct_index = index_vrai;
+                                en_correction = true;
+                              });
+                            } else {
+                              setState(() {
+                                en_correction = false;
+                                selectedResponse = null;
+                              });
+                              // passer à la question suivante
+                              if ((selected_quiz < quizData.length - 1) ||
+                                  (selected_quiz == 0)) {
+                                setState(() {
+                                  selected_quiz += 1;
+                                });
+                              } else {
+                                setState(() {
+                                  selected_quiz = 0;
+                                });
+                              }
+                            }
+                          }
+                        },
                         child: const Text("Suivant"),
                       ),
                     ),

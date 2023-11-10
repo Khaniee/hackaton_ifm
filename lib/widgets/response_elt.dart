@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 
 class ResponseElt extends StatelessWidget {
-  const ResponseElt({
+  ResponseElt({
     super.key,
     required this.name,
     required this.onTap,
@@ -17,11 +17,14 @@ class ResponseElt extends StatelessWidget {
   final String? name;
   final bool isTrue;
   final bool isFalse;
-  final bool isSelected;
+  bool isSelected;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
+    if (isTrue || isFalse) {
+      isSelected = false;
+    }
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
