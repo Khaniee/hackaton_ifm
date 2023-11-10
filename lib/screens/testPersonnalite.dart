@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/data/QuizJob.dart';
+import 'package:hackaton_ifm/screens/whoami_summary_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/response_elt.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class TestPersonnaliteScreen extends StatefulWidget {
@@ -12,6 +15,8 @@ class TestPersonnaliteScreen extends StatefulWidget {
 }
 
 class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
+  final List quizData = QuizJob.get();
+  int selected_quiz = 0;
   final reponses = [
     "Math et Physiques",
     "Histo_Géeo",
@@ -19,6 +24,7 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
     "Philosophie"
   ];
   int? selectedResponse;
+  List choicesCategory = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,12 +79,12 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                             borderRadius: BorderRadius.circular(15),
                             color: Colors.white,
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Center(
                                 child: Text(
-                              "Quelle(s) matière(s) préfèrez-vous ? ",
-                              style: TextStyle(
+                              quizData[selected_quiz]["question"],
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                   color: Colors.black45),
@@ -100,10 +106,12 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                               backgroundColor: Colors.white,
                               lineWidth: 7.5,
                               animation: true,
-                              percent: 0.7,
-                              center: const Text(
-                                "70%",
-                                style: TextStyle(
+                              percent:
+                                  ((selected_quiz * 100) / quizData.length) /
+                                      100,
+                              center: Text(
+                                "${(((selected_quiz) * 100) / quizData.length).toInt()}%",
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14.0),
                               ),
@@ -118,7 +126,8 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                       height: 30,
                     ),
                     Column(
-                      children: List.generate(reponses.length, (index) {
+                      children: List.generate(
+                          quizData[selected_quiz]["reponses"].length, (index) {
                         return Container(
                           height: 50,
                           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -128,7 +137,8 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                             isSelected: selectedResponse == index,
                             // isTrue: true,
                             // isFalse: true,
-                            name: reponses[index],
+                            name: quizData[selected_quiz]["reponses"][index]
+                                ["libelle"],
                             onTap: () {
                               setState(() {
                                 selectedResponse = index;
@@ -152,7 +162,42 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                           backgroundColor: AppColor.middlePrimary,
                           shape: const StadiumBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (selectedResponse != null) {
+                            if ((selected_quiz < quizData.length - 1)) {
+                              String categorychoice = quizData[selected_quiz]
+                                  ["reponses"][selectedResponse]["categorie"];
+                              setState(() {
+                                choicesCategory.add(categorychoice);
+                                selected_quiz += 1;
+                                selectedResponse = null;
+                              });
+                            } else {
+                              Set<String> ensembleUnique =
+                                  Set<String>.from(choicesCategory);
+                              List<String> listeUnique =
+                                  ensembleUnique.toList();
+                              listeUnique.sort((a, b) => choicesCategory
+                                  .where((element) => element == a)
+                                  .length
+                                  .compareTo(choicesCategory
+                                      .where((element) => element == b)
+                                      .length));
+                              // print("etooooooooooooo");
+                              // print(listeUnique);
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  child: WhoAmISummaryScreen(
+                                    listeJobCategory: listeUnique,
+                                  ),
+                                  type: PageTransitionType.fade,
+                                  duration: const Duration(milliseconds: 400),
+                                ),
+                              );
+                            }
+                          }
+                        },
                         child: const Text("Suivant"),
                       ),
                     ),

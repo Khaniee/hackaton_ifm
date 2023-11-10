@@ -17,10 +17,6 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
   int selected_quiz = 0;
   int? correct_index;
   bool en_correction = false;
-  final reponses = [
-    "Féliciter les amis et faire mieux la prochaine fois",
-    "Leur donner une gifle"
-  ];
   int? selectedResponse;
   @override
   Widget build(BuildContext context) {

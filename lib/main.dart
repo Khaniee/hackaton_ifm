@@ -38,7 +38,8 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         backgroundColor: Color(0xff462e54),
-        body: WelcomePage(),
+        // body: WelcomePage(),
+        body: ScaffoldWithBottomNavbar(),
       ),
     );
   }

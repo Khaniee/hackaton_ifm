@@ -1,5 +1,6 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/data/DataJob.dart';
 import 'package:hackaton_ifm/screens/formation_list_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
@@ -10,7 +11,8 @@ import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 
 class WhoAmISummaryScreen extends StatefulWidget {
-  const WhoAmISummaryScreen({super.key});
+  const WhoAmISummaryScreen({super.key, this.listeJobCategory = const []});
+  final List listeJobCategory;
 
   @override
   State<WhoAmISummaryScreen> createState() => _WhoAmISummaryScreenState();
@@ -18,6 +20,7 @@ class WhoAmISummaryScreen extends StatefulWidget {
 
 class _WhoAmISummaryScreenState extends State<WhoAmISummaryScreen> {
   final controller = ConfettiController();
+  final listeJobData = DataJob.get();
   @override
   void initState() {
     super.initState();
@@ -65,8 +68,8 @@ class _WhoAmISummaryScreenState extends State<WhoAmISummaryScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        const AppText(
-                          "Félicitations! Vous avez fini le test",
+                        AppText(
+                          "Félicitations! Vous avez l'âme d'un ${listeJobData[widget.listeJobCategory[0]]["nom"]}",
                           color: AppColor.primary,
                           fontSize: AppFontSize.extraLarge,
                           isBold: true,
@@ -76,7 +79,7 @@ class _WhoAmISummaryScreenState extends State<WhoAmISummaryScreen> {
                         ),
                         const Center(
                           child: AppText(
-                            "Nos études nous montre que vous allez excellez dans ces carrières!",
+                            "Nos études nous montre que vous allez excellez dans ces carrières, dans l'ordre !",
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -85,28 +88,24 @@ class _WhoAmISummaryScreenState extends State<WhoAmISummaryScreen> {
                     const SizedBox(
                       height: 50,
                     ),
-                    const ProfessionCard(),
-                    const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Divider(
-                        thickness: 1,
-                      ),
-                    ),
-                    const ProfessionCard(),
-                    const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Divider(
-                        thickness: 1,
-                      ),
-                    ),
-                    const ProfessionCard(),
-                    const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Divider(
-                        thickness: 1,
-                      ),
-                    ),
-                    const ProfessionCard(),
+                    Column(
+                        children: widget.listeJobCategory.map((e) {
+                      return Column(
+                        children: [
+                          // titre = listeJobData[e]["nom"]
+                          ProfessionCard(
+                            title: listeJobData[e]["nom"],
+                            description: listeJobData[e]["description"],
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Divider(
+                              thickness: 1,
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList()),
                     const SizedBox(
                       height: 50,
                     ),
@@ -131,7 +130,11 @@ class _WhoAmISummaryScreenState extends State<WhoAmISummaryScreen> {
 class ProfessionCard extends StatelessWidget {
   const ProfessionCard({
     super.key,
+    this.title = "Designer & graphiste",
+    this.description = "",
   });
+  final String title;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -153,16 +156,16 @@ class ProfessionCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const AppText(
-                  "Designer & Graphiste",
+                AppText(
+                  title,
                   isBold: true,
                   fontSize: AppFontSize.large,
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                const AppText(
-                  "Lorem Ipsum dolor si amet. Lorem Ipsum dolor si amet. Lorem Ipsum dolor si amet. ",
+                AppText(
+                  description,
                 ),
                 const Expanded(
                   child: SizedBox(),
