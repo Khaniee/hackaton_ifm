@@ -4,14 +4,14 @@ import 'package:hackaton_ifm/widgets/response_elt.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class TestPersonnaliteScreen extends StatefulWidget {
-  const TestPersonnaliteScreen({super.key});
+class WhoAmIQuizzScreen extends StatefulWidget {
+  const WhoAmIQuizzScreen({super.key});
 
   @override
-  State<TestPersonnaliteScreen> createState() => _TestPersonnaliteScreenState();
+  State<WhoAmIQuizzScreen> createState() => _WhoAmIQuizzScreenState();
 }
 
-class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
+class _WhoAmIQuizzScreenState extends State<WhoAmIQuizzScreen> {
   final reponses = [
     "Math et Physiques",
     "Histo_Géeo",
@@ -23,7 +23,7 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(122, 115, 231, 1),
+        backgroundColor: AppColor.red,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
@@ -48,7 +48,7 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                     height: MediaQuery.of(context).size.height / 5,
                     width: double.maxFinite,
                     decoration: const BoxDecoration(
-                        color: Color.fromRGBO(122, 115, 231, 1),
+                        color: AppColor.red,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.elliptical(15, 20),
                           bottomRight: Radius.elliptical(15, 20),
@@ -108,7 +108,7 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                                     fontSize: 14.0),
                               ),
                               circularStrokeCap: CircularStrokeCap.round,
-                              progressColor: AppColor.middlePrimary,
+                              progressColor: AppColor.purple,
                             ),
                           ),
                         ),
@@ -149,7 +149,7 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                       ),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.middlePrimary,
+                          backgroundColor: AppColor.purple,
                           shape: const StadiumBorder(),
                         ),
                         onPressed: () {},

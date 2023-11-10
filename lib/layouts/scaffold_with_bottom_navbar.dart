@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/screens/createRealisationScreen.dart';
+import 'package:hackaton_ifm/screens/create_realisation_screen.dart';
 import 'package:hackaton_ifm/screens/home_screen.dart';
 import 'package:hackaton_ifm/screens/menu_screen.dart';
-import 'package:hackaton_ifm/screens/quiz_screen.dart';
+import 'package:hackaton_ifm/screens/bonne_conduite_screen.dart';
 import 'package:hackaton_ifm/screens/timeline_screen.dart';
 import 'package:hackaton_ifm/screens/whoami_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
@@ -42,7 +42,7 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
       "icon": Iconsax.note,
       "selected_icon": Iconsax.note_2,
       "label": "Quizz",
-      "screen": const QuizScreen(),
+      "screen": const BonneConduiteScreen(),
     },
     {
       "icon": Iconsax.personalcard,
@@ -59,6 +59,7 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
       bottomNavigationBar: NavigationBar(
         height: 70,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        indicatorColor: AppColor.red.withOpacity(0.3),
         selectedIndex: selectedIndex,
         onDestinationSelected: (value) => setState(() {
           selectedIndex = value;

@@ -40,7 +40,7 @@ class _WhoAmISummaryScreenState extends State<WhoAmISummaryScreen> {
             leading: IconButton(
               icon: const Icon(
                 Iconsax.arrow_left_2,
-                color: AppColor.primary,
+                color: AppColor.purple,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -67,7 +67,7 @@ class _WhoAmISummaryScreenState extends State<WhoAmISummaryScreen> {
                         ),
                         const AppText(
                           "Félicitations! Vous avez fini le test",
-                          color: AppColor.primary,
+                          color: AppColor.purple,
                           fontSize: AppFontSize.extraLarge,
                           isBold: true,
                         ),
@@ -144,6 +144,9 @@ class ProfessionCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.grey,
               borderRadius: BorderRadius.circular(15),
+              image: const DecorationImage(
+                  image: AssetImage("assets/images/designer.png"),
+                  fit: BoxFit.cover),
             ),
           ),
           const SizedBox(
@@ -185,12 +188,12 @@ class ProfessionCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: AppColor.primary.withOpacity(0.1),
+                            color: AppColor.red.withOpacity(0.1),
                           ),
                           padding: const EdgeInsets.all(10),
                           child: const AppText(
                             "Voir les formations ...",
-                            color: AppColor.darkPrimary,
+                            color: AppColor.red,
                           ),
                         ),
                       ),

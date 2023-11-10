@@ -4,24 +4,25 @@ import 'package:hackaton_ifm/widgets/response_elt.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class QuizBonneConduite extends StatefulWidget {
-  const QuizBonneConduite({super.key});
+class BonneConduiteQuizzScreen extends StatefulWidget {
+  const BonneConduiteQuizzScreen({super.key});
 
   @override
-  State<QuizBonneConduite> createState() => _QuizBonneConduiteState();
+  State<BonneConduiteQuizzScreen> createState() =>
+      _BonneConduiteQuizzScreenState();
 }
 
-class _QuizBonneConduiteState extends State<QuizBonneConduite> {
+class _BonneConduiteQuizzScreenState extends State<BonneConduiteQuizzScreen> {
   final reponses = [
-    "Féliciter les amis et faire mieux la prochaine fois",
-    "Leur donner une gifle"
+    "Féliciter les amis",
+    "Leur donner une gifle",
   ];
   int? selectedResponse;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(122, 115, 231, 1),
+        backgroundColor: AppColor.red,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
@@ -39,14 +40,14 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
             Container(
               height: double.maxFinite,
               width: double.maxFinite,
-              color: const Color.fromRGBO(223, 225, 229, 1),
+              color: AppColor.offWhite,
               child: Column(
                 children: [
                   Container(
                     height: MediaQuery.of(context).size.height / 5,
                     width: double.maxFinite,
                     decoration: const BoxDecoration(
-                        color: Color.fromRGBO(122, 115, 231, 1),
+                        color: AppColor.red,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.elliptical(15, 20),
                           bottomRight: Radius.elliptical(15, 20),
@@ -71,12 +72,12 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(color: Colors.white, width: 2),
                             color: Colors.white,
-                            image: DecorationImage(
+                            image: const DecorationImage(
                               image: AssetImage("assets/images/image1.jpg"),
                               fit: BoxFit.cover,
                             ),
                           ),
-                          child: Padding(
+                          child: const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             // child: Text(""),
                           ),
@@ -104,7 +105,7 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
                                     fontSize: 14.0),
                               ),
                               circularStrokeCap: CircularStrokeCap.round,
-                              progressColor: AppColor.middlePrimary,
+                              progressColor: AppColor.purple,
                             ),
                           ),
                         ),
@@ -113,9 +114,9 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Container(
+                    const SizedBox(
                       width: 350,
-                      child: const Center(
+                      child: Center(
                         child: Text(
                           "Vous avez participé à un hackaton, vous avez perdu contre vos amis. Dans cette situation, que ferez-vous ? ",
                           textAlign: TextAlign.center,
@@ -133,7 +134,7 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
                       children: List.generate(reponses.length, (index) {
                         return Container(
                           height: 50,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           width: 350,
                           margin: const EdgeInsets.only(bottom: 15),
                           child: ResponseElt(
@@ -161,7 +162,7 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
                       ),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.middlePrimary,
+                          backgroundColor: AppColor.purple,
                           shape: const StadiumBorder(),
                         ),
                         onPressed: () {},

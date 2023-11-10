@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/utils/color.dart';
-import 'package:hackaton_ifm/utils/core.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
@@ -44,6 +43,9 @@ class AchievementPostCard extends StatelessWidget {
                     AppText(
                       "Jennifer Cole",
                       isBold: true,
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     Row(
                       children: [

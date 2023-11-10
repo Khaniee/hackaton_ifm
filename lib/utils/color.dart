@@ -10,6 +10,6 @@ class AppColor {
   static const Color divider = Color(0xffbdbdbd);
   static const Color textColor = Color(0xff757575);
   static const Color middlePrimary = Color.fromRGBO(122, 115, 231, 1);
-  static const Color red = const Color.fromRGBO(195, 72, 84, 1);
-  static const Color purple = const Color.fromRGBO(70, 46, 84, 1);
+  static const Color red = Color(0xFFC34854);
+  static const Color purple = Color(0xFF462E54);
 }
