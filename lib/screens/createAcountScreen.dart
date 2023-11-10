@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/screens/loginScreen.dart';
+import 'package:hackaton_ifm/utils/color.dart';
 import 'package:indexed/indexed.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({super.key});
@@ -23,13 +26,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               child: Column(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height / 1.5,
                     width: double.maxFinite,
                     decoration: const BoxDecoration(
-                        color: Color.fromRGBO(122, 115, 231, 1),
+                        color: AppColor.purple,
                         borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.elliptical(15, 20),
-                          bottomRight: Radius.elliptical(15, 20),
+                          // bottomLeft: Radius.elliptical(15, 20),
+                          bottomRight: Radius.circular(250),
                         )),
                   ),
                 ],
@@ -182,7 +185,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             child: ElevatedButton(
                               style: const ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll(
-                                    Color.fromRGBO(122, 115, 231, 1)),
+                                  AppColor.red,
+                                ),
                               ),
                               onPressed: () {},
                               child: const Text("Créer compte"),
@@ -191,16 +195,23 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           const SizedBox(
                             height: 30,
                           ),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
+                              const Text(
                                 "Vous avez déjà un compte ? ",
                                 style: TextStyle(color: Colors.black45),
                               ),
-                              Text(
-                                "Connectez-vous",
-                                style: TextStyle(color: Colors.blue),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(
+                                    context,
+                                  );
+                                },
+                                child: const Text(
+                                  "Connectez-vous",
+                                  style: TextStyle(color: AppColor.red),
+                                ),
                               ),
                             ],
                           ),

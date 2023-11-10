@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/layouts/scaffold_with_bottom_navbar.dart';
+import 'package:hackaton_ifm/screens/createAcountScreen.dart';
+import 'package:hackaton_ifm/screens/home_screen.dart';
+import 'package:hackaton_ifm/utils/color.dart';
 import 'package:indexed/indexed.dart';
+import 'package:page_transition/page_transition.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,13 +28,13 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Container(
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height / 1.5,
                     width: double.maxFinite,
                     decoration: const BoxDecoration(
-                        color: Color.fromRGBO(122, 115, 231, 1),
+                        color: AppColor.purple,
                         borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.elliptical(15, 20),
-                          bottomRight: Radius.elliptical(15, 20),
+                          bottomLeft: Radius.circular(250),
+                          // bottomRight: Radius.elliptical(15, 20),
                         )),
                   ),
                 ],
@@ -153,26 +158,48 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 50,
                             child: ElevatedButton(
                               style: const ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(
-                                    Color.fromRGBO(122, 115, 231, 1)),
+                                backgroundColor:
+                                    MaterialStatePropertyAll(AppColor.red),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ScaffoldWithBottomNavbar(),
+                                  ),
+                                );
+                              },
                               child: const Text("Se connecter"),
                             ),
                           ),
                           const SizedBox(
                             height: 30,
                           ),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
+                              const Text(
                                 "Pas encore de compte ? ",
                                 style: TextStyle(color: Colors.black45),
                               ),
-                              Text(
-                                "Creez un compte",
-                                style: TextStyle(color: Colors.blue),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child: const CreateAccountScreen(),
+                                      type:
+                                          PageTransitionType.rightToLeftJoined,
+                                      childCurrent: this.widget,
+                                      duration:
+                                          const Duration(milliseconds: 400),
+                                    ),
+                                  );
+                                },
+                                child: const Text(
+                                  "Creez un compte",
+                                  style: TextStyle(color: AppColor.red),
+                                ),
                               ),
                             ],
                           ),
