@@ -30,7 +30,7 @@ class _WelcomePageState extends State<WelcomePage> {
   void initState() {
     super.initState();
     startAnimation();
-    Timer.periodic(Duration(seconds: (1 * 4) + 2), (timer) {
+    Timer.periodic(Duration(seconds: (1 * 3) + 2), (timer) {
       startAnimation();
     });
     Timer.periodic(Duration(seconds: 2), (timer) {
@@ -58,21 +58,21 @@ class _WelcomePageState extends State<WelcomePage> {
           // code to be executed after 2 seconds
           inputValue1?.change(i);
           i++;
-        }).then(
-          (value) => Future.delayed(Duration(seconds: transition), () {
-            // code to be executed after 2 seconds
-            inputValue1?.change(2);
-            i++;
-          }).then(
-            (value) => Future.delayed(
-              Duration(seconds: transition),
-              () {
-                // code to be executed after 2 seconds
-                inputValue1?.change(3);
-              },
-            ),
-          ),
-        ));
+        }).then((value) => Future.delayed(Duration(seconds: transition), () {
+                  // code to be executed after 2 seconds
+                  inputValue1?.change(2);
+                  i++;
+                })
+            // .then(
+            //   (value) => Future.delayed(
+            //     Duration(seconds: transition),
+            //     () {
+            //       // code to be executed after 2 seconds
+            //       inputValue1?.change(3);
+            //     },
+            //   ),
+            // ),
+            ));
     // }
   }
 
@@ -87,8 +87,8 @@ class _WelcomePageState extends State<WelcomePage> {
               Stack(
                 children: [
                   Container(
-                    color: const Color.fromRGBO(70, 46, 84, 1),
-                    // color: const Color.fromRGBO(56, 0, 59, 1),
+                    // color: const Color.fromRGBO(70, 46, 84, 1),
+                    color: const Color.fromRGBO(56, 0, 59, 1),
 
                     width: double.maxFinite,
                     height: double.maxFinite,
@@ -99,43 +99,34 @@ class _WelcomePageState extends State<WelcomePage> {
                           children: [
                             Container(
                               width: double.maxFinite,
-                              height: MediaQuery.of(context).size.height / 2,
-                              // height: MediaQuery.of(context).size.height / 1.5,
+                              // height: MediaQuery.of(context).size.height / 2,
+                              height: MediaQuery.of(context).size.height / 1.5,
 
                               child: RiveAnimation.asset(
-                                "assets/images/age.riv",
-                                // "assets/images/mixing.riv",
+                                // "assets/images/age.riv",
+                                "assets/images/mixing_animations.riv",
                                 onInit: (artboard) {
                                   controller1 =
                                       StateMachineController.fromArtboard(
                                     artboard,
-                                    "AgeClasses",
+                                    "State Machine 1",
+                                    // "AgeClasses",
                                   );
                                   if (controller1 != null) {
                                     artboard.addController(controller1!);
                                     inputValue1 =
-                                        controller1?.findInput("age_class");
+                                        controller1?.findInput("level");
                                     inputValue1?.change(0);
                                   }
                                 },
                               ),
                             ),
-                            // Container(
-                            //   width: double.maxFinite,
-                            //   height: MediaQuery.of(context).size.height / 1.5,
-                            //   alignment: Alignment.bottomCenter,
-                            //   child: Container(
-                            //     width: double.maxFinite,
-                            //     height: 100,
-                            //     color: const Color.fromRGBO(56, 0, 59, 1),
-                            //   ),
-                            // )
                           ],
                         ),
-                        const SizedBox(
-                          height: 100,
-                          // height: 50,
-                        )
+                        // const SizedBox(
+                        //   height: 100,
+                        //   // height: 50,
+                        // )
                       ],
                     ),
                   ),
