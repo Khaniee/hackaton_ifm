@@ -20,6 +20,12 @@ class _WelcomePageState extends State<WelcomePage> {
   SMIInput<double>? inputValue1;
   StateMachineController? controller2;
   SMIInput<bool>? inputValue2;
+  List<String> third_title = [
+    "Humain\nintelligent",
+    "Humain\naccomplie",
+    "Humain\nqui sait ce qu'il fait dans la vie.",
+  ];
+  int selected_title = 0;
 
   void initState() {
     super.initState();
@@ -29,9 +35,13 @@ class _WelcomePageState extends State<WelcomePage> {
     });
     Timer.periodic(Duration(seconds: 2), (timer) {
       if (selected_title < 2) {
-        selected_title += 1;
+        setState(() {
+          selected_title += 1;
+        });
       } else {
-        selected_title = 0;
+        setState(() {
+          selected_title = 0;
+        });
       }
     });
   }
@@ -65,13 +75,6 @@ class _WelcomePageState extends State<WelcomePage> {
         ));
     // }
   }
-
-  List<String> third_title = [
-    "Humain\nintelligent",
-    "Humain\naccomplie",
-    "Humain\nqui sait ce qu'il fait dans la vie.",
-  ];
-  int selected_title = 0;
 
   @override
   Widget build(BuildContext context) {
