@@ -36,18 +36,19 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         scaffoldBackgroundColor: AppColor.offWhite,
       ),
-      home: Scaffold(
-        // backgroundColor: Color(0xff462e54),
-        // body: Container(
-        //   decoration: BoxDecoration(
-        //     shape: BoxShape.circle,
-        //   ),
-        //   child: RiveAnimation.asset(
-        //     "assets/images/rocket.riv",
-        //   ),
-        // ),
-        body: WelcomePage(),
-      ),
+      // home: Scaffold(
+      //   // backgroundColor: Color(0xff462e54),
+      //   // body: Container(
+      //   //   decoration: BoxDecoration(
+      //   //     shape: BoxShape.circle,
+      //   //   ),
+      //   //   child: RiveAnimation.asset(
+      //   //     "assets/images/rocket.riv",
+      //   //   ),
+      //   // ),
+      //   body: WelcomePage(),
+      // ),
+      home: const ScaffoldWithBottomNavbar(),
     );
   }
 }

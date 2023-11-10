@@ -189,43 +189,25 @@ class FormationDetail extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              icon: const Icon(
-                Iconsax.arrow_left_2,
-                size: 32,
-                color: AppColor.primary,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            IconButton(
               onPressed: () {},
               icon: const Icon(
                 Iconsax.bookmark,
                 size: 32,
               ),
-            )
+            ),
+            IconButton(
+              icon: const Icon(
+                Iconsax.close_square,
+                size: 32,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ],
         ),
         Center(
-          child: Container(
-            width: 150,
-            height: 200,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26.withOpacity(0.17),
-                    blurRadius: 20,
-                    offset: const Offset(0, 25))
-              ],
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
-              image: const DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage("assets/images/bookcover1.jpg"),
-              ),
-            ),
-          ),
+          child: buildFormationCover(),
         ),
         const SizedBox(
           height: 20,
@@ -354,6 +336,27 @@ class FormationDetail extends StatelessWidget {
       ],
     );
   }
+}
+
+Container buildFormationCover() {
+  return Container(
+    width: 150,
+    height: 200,
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+            color: Colors.black26.withOpacity(0.17),
+            blurRadius: 20,
+            offset: const Offset(0, 25))
+      ],
+      borderRadius: BorderRadius.circular(15),
+      color: Colors.white,
+      image: const DecorationImage(
+        fit: BoxFit.cover,
+        image: AssetImage("assets/images/bookcover1.jpg"),
+      ),
+    ),
+  );
 }
 
 class ProfessionCard extends StatelessWidget {
