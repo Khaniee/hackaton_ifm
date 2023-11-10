@@ -209,7 +209,9 @@ class _QuizBonneConduiteState extends State<QuizBonneConduite> {
                             }
                           }
                         },
-                        child: const Text("Suivant"),
+                        child: en_correction == false
+                            ? const Text("Corriger")
+                            : const Text("Suivant"),
                       ),
                     ),
                   ],
