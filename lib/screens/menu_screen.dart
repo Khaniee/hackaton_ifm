@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/screens/formation_list_screen.dart';
 import 'package:hackaton_ifm/screens/bonne_conduite_quizz_screen.dart';
+import 'package:hackaton_ifm/screens/on_boarding_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:page_transition/page_transition.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -37,7 +39,17 @@ class MenuScreen extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          child: WelcomePage(),
+                          type: PageTransitionType.fade,
+                          duration: const Duration(milliseconds: 400),
+                        ),
+                      );
+                    },
                     child: const Text(
                       "Se déconnecter",
                       style: TextStyle(color: Colors.red),

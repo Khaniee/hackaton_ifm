@@ -189,7 +189,7 @@ class _LifelineState extends State<LifelineScreen> {
                   top: 15,
                   left: 15,
                   right: 15,
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 15,
+                  // bottom: MediaQuery.of(context).viewInsets.bottom + 15,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

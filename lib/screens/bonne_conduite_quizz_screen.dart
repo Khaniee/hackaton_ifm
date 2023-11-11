@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/data/QuizPersonnalite.dart';
 import 'package:hackaton_ifm/utils/color.dart';
@@ -14,11 +15,13 @@ class BonneConduiteQuizzScreen extends StatefulWidget {
 }
 
 class _BonneConduiteQuizzScreenState extends State<BonneConduiteQuizzScreen> {
+  final controller = ConfettiController();
   final List quizData = QuizData.get();
   int selected_quiz = 0;
   int? correct_index;
   bool en_correction = false;
   int? selectedResponse;
+  int points = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,12 +101,12 @@ class _BonneConduiteQuizzScreenState extends State<BonneConduiteQuizzScreen> {
                               backgroundColor: Colors.white,
                               lineWidth: 7.5,
                               animation: true,
-                              percent: 0.7,
-                              center: const Text(
-                                "70%",
-                                style: TextStyle(
+                              percent: 1,
+                              center: Text(
+                                "${points}",
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 14.0),
+                                    fontSize: 16.0),
                               ),
                               circularStrokeCap: CircularStrokeCap.round,
                               progressColor: AppColor.purple,
@@ -183,6 +186,17 @@ class _BonneConduiteQuizzScreenState extends State<BonneConduiteQuizzScreen> {
                             if (en_correction == false) {
                               int index_vrai =
                                   quizData[selected_quiz]["correctIndex"];
+
+                              if ((index_vrai == selectedResponse) &&
+                                  (en_correction == false)) {
+                                controller.play();
+                                Future.delayed(Duration(milliseconds: 200), () {
+                                  controller.stop();
+                                });
+                                setState(() {
+                                  points += 1;
+                                });
+                              }
                               setState(() {
                                 correct_index = index_vrai;
                                 en_correction = true;
@@ -212,6 +226,16 @@ class _BonneConduiteQuizzScreenState extends State<BonneConduiteQuizzScreen> {
                       ),
                     ),
                   ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: ConfettiWidget(
+                  emissionFrequency: 0.01,
+                  confettiController: controller,
+                  numberOfParticles: 20,
+                  blastDirectionality: BlastDirectionality.explosive,
                 ),
               ),
             ),

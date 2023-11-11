@@ -23,15 +23,14 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
   int selectedIndex = 0;
   final List<Map<String, dynamic>> pages = [
     {
-      "icon": Iconsax.home,
-      "selected_icon": Iconsax.home_1,
-      "label": "Acceuil",
-      "screen": const HomeScreen(),
-    },
-    {
       "icon": Iconsax.heart,
       "label": "Ligne de Vie",
       "screen": const LifelineScreen(),
+    },
+    {
+      "icon": Iconsax.personalcard,
+      "label": "Qui-Suis-Je ?",
+      "screen": const WhoAmIScreen(),
     },
     {
       "icon": Iconsax.menu,
@@ -39,15 +38,16 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
       "screen": const MenuScreen(),
     },
     {
+      "icon": Iconsax.home,
+      "selected_icon": Iconsax.home_1,
+      "label": "Acceuil",
+      "screen": const HomeScreen(),
+    },
+    {
       "icon": Iconsax.note,
       "selected_icon": Iconsax.note_2,
       "label": "Quizz",
       "screen": const BonneConduiteScreen(),
-    },
-    {
-      "icon": Iconsax.personalcard,
-      "label": "Qui-Suis-Je ?",
-      "screen": const WhoAmIScreen(),
     },
   ];
 

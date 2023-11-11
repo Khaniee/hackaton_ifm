@@ -23,7 +23,7 @@ class WhoAmIScreen extends StatelessWidget {
                   width: double.maxFinite,
                   // height: 200,
                   child: Lottie.asset(
-                    'assets/images/lottie1.json',
+                    'assets/images/whoami.json',
                     reverse: true,
                     fit: BoxFit.contain,
                   ),
@@ -41,7 +41,7 @@ class WhoAmIScreen extends StatelessWidget {
                         ),
                         AppText(
                           "Qui-Suis-Je ?",
-                          color: AppColor.red,
+                          color: AppColor.purple,
                           fontSize: 56,
                           isBold: true,
                         ),
@@ -64,7 +64,7 @@ class WhoAmIScreen extends StatelessWidget {
                       width: double.maxFinite,
                       child: ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.red,
+                            backgroundColor: AppColor.purple,
                             foregroundColor: AppColor.white,
                             shape: const StadiumBorder(),
                           ),
@@ -87,7 +87,7 @@ class WhoAmIScreen extends StatelessWidget {
                       child: OutlinedButton.icon(
                           style: OutlinedButton.styleFrom(
                             backgroundColor: AppColor.white,
-                            foregroundColor: AppColor.red,
+                            foregroundColor: AppColor.purple,
                             shape: const StadiumBorder(),
                           ),
                           onPressed: () {

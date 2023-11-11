@@ -73,65 +73,6 @@ class _WelcomePageState extends State<WelcomePage> {
           PageView(
             controller: _controller,
             children: [
-              Stack(
-                children: [
-                  Container(
-                    color: AppColor.red,
-                    width: double.maxFinite,
-                    height: double.maxFinite,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Stack(
-                          children: [
-                            Container(
-                              width: double.maxFinite,
-                              height: MediaQuery.of(context).size.height / 1.5,
-                              child: RiveAnimation.asset(
-                                // "assets/images/age.riv",
-                                "assets/images/mixing_animations.riv",
-                                onInit: (artboard) {
-                                  controller1 =
-                                      StateMachineController.fromArtboard(
-                                    artboard,
-                                    "State Machine 1",
-                                    // "AgeClasses",
-                                  );
-                                  if (controller1 != null) {
-                                    artboard.addController(controller1!);
-                                    inputValue1 =
-                                        controller1?.findInput("level");
-                                    inputValue1?.change(0);
-                                  }
-                                },
-                              ),
-                            ),
-                            Container(
-                              width: double.maxFinite,
-                              height: MediaQuery.of(context).size.height / 1.5,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    color: AppColor.red,
-                                    height: 50,
-                                    width: double.maxFinite,
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SlideText(
-                    title: "Apprenez et grandissez",
-                    description:
-                        "Deviens une meilleure personne grâce à nos quiz et nos petits messages",
-                  ),
-                ],
-              ),
               Container(
                 color: const Color.fromRGBO(195, 72, 84, 1),
                 width: double.maxFinite,
@@ -190,48 +131,6 @@ class _WelcomePageState extends State<WelcomePage> {
                                 "assets/images/rocket.riv",
                               ),
                             ),
-                            SizedBox(
-                              width: double.maxFinite,
-                              height: MediaQuery.of(context).size.height / 1.5,
-                              child: Column(
-                                children: [
-                                  const Expanded(child: SizedBox()),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15),
-                                    height: 50,
-                                    child: SizedBox(
-                                      width: 200,
-                                      height: 50,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          shape: const StadiumBorder(),
-                                          backgroundColor: Colors.white,
-                                        ),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            PageTransition(
-                                              child: LoginScreen(),
-                                              type: PageTransitionType.fade,
-                                              duration: const Duration(
-                                                  milliseconds: 400),
-                                            ),
-                                          );
-                                        },
-                                        child: const Text(
-                                          "Commencer",
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 80,
-                                  ),
-                                ],
-                              ),
-                            ),
                           ],
                         ),
                       ],
@@ -244,6 +143,105 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                   ],
                 ),
+              ),
+              Stack(
+                children: [
+                  Container(
+                    color: AppColor.red,
+                    width: double.maxFinite,
+                    height: double.maxFinite,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Stack(
+                          children: [
+                            Container(
+                              width: double.maxFinite,
+                              height: MediaQuery.of(context).size.height / 1.5,
+                              child: RiveAnimation.asset(
+                                // "assets/images/age.riv",
+                                "assets/images/mixing_animations.riv",
+                                onInit: (artboard) {
+                                  controller1 =
+                                      StateMachineController.fromArtboard(
+                                    artboard,
+                                    "State Machine 1",
+                                    // "AgeClasses",
+                                  );
+                                  if (controller1 != null) {
+                                    artboard.addController(controller1!);
+                                    inputValue1 =
+                                        controller1?.findInput("level");
+                                    inputValue1?.change(0);
+                                  }
+                                },
+                              ),
+                            ),
+                            Container(
+                              width: double.maxFinite,
+                              height: MediaQuery.of(context).size.height / 1.5,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    color: AppColor.red,
+                                    height: 50,
+                                    width: double.maxFinite,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SlideText(
+                    title: "Apprenez et grandissez",
+                    description:
+                        "Deviens une meilleure personne grâce à nos quiz et nos petits messages",
+                  ),
+                  SizedBox(
+                    width: double.maxFinite,
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      children: [
+                        const Expanded(child: SizedBox()),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          height: 50,
+                          child: SizedBox(
+                            width: 200,
+                            height: 50,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: const StadiumBorder(),
+                                backgroundColor: Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: LoginScreen(),
+                                    type: PageTransitionType.fade,
+                                    duration: const Duration(milliseconds: 400),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                "Commencer",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 80,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
