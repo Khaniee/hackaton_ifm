@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/data/QuizJob.dart';
-import 'package:hackaton_ifm/screens/whoami_summary_screen.dart';
+import 'package:hackaton_ifm/data/QuizPersonnalite.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/response_elt.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class TestPersonnaliteScreen extends StatefulWidget {
-  const TestPersonnaliteScreen({super.key});
+class BonneConduiteQuizzScreen extends StatefulWidget {
+  const BonneConduiteQuizzScreen({super.key});
 
   @override
-  State<TestPersonnaliteScreen> createState() => _TestPersonnaliteScreenState();
+  State<BonneConduiteQuizzScreen> createState() =>
+      _BonneConduiteQuizzScreenState();
 }
 
-class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
-  final List quizData = QuizJob.get();
+class _BonneConduiteQuizzScreenState extends State<BonneConduiteQuizzScreen> {
+  final List quizData = QuizData.get();
   int selected_quiz = 0;
-  final reponses = [
-    "Math et Physiques",
-    "Histo_Géeo",
-    "Français - Anglais",
-    "Philosophie"
-  ];
+  int? correct_index;
+  bool en_correction = false;
   int? selectedResponse;
-  List choicesCategory = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(122, 115, 231, 1),
+        backgroundColor: AppColor.red,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
@@ -47,14 +41,14 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
             Container(
               height: double.maxFinite,
               width: double.maxFinite,
-              color: const Color.fromRGBO(223, 225, 229, 1),
+              color: AppColor.offWhite,
               child: Column(
                 children: [
                   Container(
                     height: MediaQuery.of(context).size.height / 5,
                     width: double.maxFinite,
                     decoration: const BoxDecoration(
-                        color: Color.fromRGBO(122, 115, 231, 1),
+                        color: AppColor.red,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.elliptical(15, 20),
                           bottomRight: Radius.elliptical(15, 20),
@@ -77,18 +71,16 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                           width: 350,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: Colors.white, width: 2),
                             color: Colors.white,
+                            image: const DecorationImage(
+                              image: AssetImage("assets/images/image1.jpg"),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Center(
-                                child: Text(
-                              quizData[selected_quiz]["question"],
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Colors.black45),
-                            )),
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            // child: Text(""),
                           ),
                         ),
                         Positioned(
@@ -106,21 +98,35 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                               backgroundColor: Colors.white,
                               lineWidth: 7.5,
                               animation: true,
-                              percent:
-                                  ((selected_quiz * 100) / quizData.length) /
-                                      100,
-                              center: Text(
-                                "${(((selected_quiz) * 100) / quizData.length).toInt()}%",
-                                style: const TextStyle(
+                              percent: 0.7,
+                              center: const Text(
+                                "70%",
+                                style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 14.0),
                               ),
                               circularStrokeCap: CircularStrokeCap.round,
-                              progressColor: AppColor.middlePrimary,
+                              progressColor: AppColor.purple,
                             ),
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    SizedBox(
+                      width: 350,
+                      child: Center(
+                        child: Text(
+                          quizData[selected_quiz]["question"],
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.black45),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 30,
@@ -130,15 +136,24 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                           quizData[selected_quiz]["reponses"].length, (index) {
                         return Container(
                           height: 50,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           width: 350,
                           margin: const EdgeInsets.only(bottom: 15),
                           child: ResponseElt(
                             isSelected: selectedResponse == index,
-                            // isTrue: true,
-                            // isFalse: true,
-                            name: quizData[selected_quiz]["reponses"][index]
-                                ["libelle"],
+                            isTrue: correct_index == index
+                                ? en_correction == true
+                                    ? true
+                                    : false
+                                : false,
+                            isFalse: correct_index != index
+                                ? correct_index != null
+                                    ? selectedResponse == index
+                                        ? en_correction == true
+                                        : false
+                                    : false
+                                : false,
+                            name: quizData[selected_quiz]["reponses"][index],
                             onTap: () {
                               setState(() {
                                 selectedResponse = index;
@@ -159,46 +174,41 @@ class _TestPersonnaliteScreenState extends State<TestPersonnaliteScreen> {
                       ),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.middlePrimary,
+                          backgroundColor: AppColor.purple,
                           shape: const StadiumBorder(),
                         ),
                         onPressed: () {
                           if (selectedResponse != null) {
-                            if ((selected_quiz < quizData.length - 1)) {
-                              String categorychoice = quizData[selected_quiz]
-                                  ["reponses"][selectedResponse]["categorie"];
+                            // corriger reponse
+                            if (en_correction == false) {
+                              int index_vrai =
+                                  quizData[selected_quiz]["correctIndex"];
                               setState(() {
-                                choicesCategory.add(categorychoice);
-                                selected_quiz += 1;
-                                selectedResponse = null;
+                                correct_index = index_vrai;
+                                en_correction = true;
                               });
                             } else {
-                              Set<String> ensembleUnique =
-                                  Set<String>.from(choicesCategory);
-                              List<String> listeUnique =
-                                  ensembleUnique.toList();
-                              listeUnique.sort((a, b) => choicesCategory
-                                  .where((element) => element == a)
-                                  .length
-                                  .compareTo(choicesCategory
-                                      .where((element) => element == b)
-                                      .length));
-                              // print("etooooooooooooo");
-                              // print(listeUnique);
-                              Navigator.push(
-                                context,
-                                PageTransition(
-                                  child: WhoAmISummaryScreen(
-                                    listeJobCategory: listeUnique,
-                                  ),
-                                  type: PageTransitionType.fade,
-                                  duration: const Duration(milliseconds: 400),
-                                ),
-                              );
+                              setState(() {
+                                en_correction = false;
+                                selectedResponse = null;
+                              });
+                              // passer à la question suivante
+                              if ((selected_quiz < quizData.length - 1) ||
+                                  (selected_quiz == 0)) {
+                                setState(() {
+                                  selected_quiz += 1;
+                                });
+                              } else {
+                                setState(() {
+                                  selected_quiz = 0;
+                                });
+                              }
                             }
                           }
                         },
-                        child: const Text("Suivant"),
+                        child: en_correction == false
+                            ? const Text("Corriger")
+                            : const Text("Suivant"),
                       ),
                     ),
                   ],

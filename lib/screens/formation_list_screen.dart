@@ -19,7 +19,7 @@ class FormationListScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(
             Iconsax.arrow_left_2,
-            color: AppColor.primary,
+            color: AppColor.purple,
           ),
           onPressed: () {
             Navigator.of(context).pop();
@@ -42,7 +42,7 @@ class FormationListScreen extends StatelessWidget {
                   children: [
                     Icon(
                       Iconsax.folder_2,
-                      color: AppColor.blackPrimary,
+                      color: AppColor.purple,
                     ),
                     SizedBox(
                       width: 10,
@@ -50,7 +50,7 @@ class FormationListScreen extends StatelessWidget {
                     AppText(
                       "Formation Débutants",
                       fontSize: AppFontSize.extraLarge,
-                      color: AppColor.blackPrimary,
+                      color: AppColor.purple,
                       isBold: true,
                     )
                   ],
@@ -129,7 +129,7 @@ class FormationListScreen extends StatelessWidget {
                                   "Practical Guide for UI Design",
                                   overflow: TextOverflow.ellipsis,
                                   fontSize: AppFontSize.large,
-                                  color: AppColor.blackPrimary,
+                                  color: AppColor.purple,
                                   isBold: true,
                                 ),
                               ),
@@ -193,12 +193,14 @@ class FormationDetail extends StatelessWidget {
               icon: const Icon(
                 Iconsax.bookmark,
                 size: 32,
+                color: AppColor.purple,
               ),
             ),
             IconButton(
               icon: const Icon(
                 Iconsax.close_square,
                 size: 32,
+                color: AppColor.purple,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -216,14 +218,14 @@ class FormationDetail extends StatelessWidget {
           "Practical Guide for UI Design",
           overflow: TextOverflow.ellipsis,
           fontSize: AppFontSize.large,
-          color: AppColor.blackPrimary,
+          color: AppColor.purple,
           isBold: true,
         ),
         const SizedBox(
           height: 10,
         ),
         const Divider(
-          color: AppColor.blackPrimary,
+          color: AppColor.purple,
         ),
         const SizedBox(
           height: 10,
@@ -298,7 +300,7 @@ class FormationDetail extends StatelessWidget {
           children: [
             AppText(
               "Description :",
-              color: AppColor.blackPrimary,
+              color: AppColor.purple,
               isBold: true,
             ),
             SizedBox(
@@ -318,7 +320,7 @@ class FormationDetail extends StatelessWidget {
           height: 50,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColor.blackPrimary,
+              backgroundColor: AppColor.purple,
               shape: const StadiumBorder(),
             ),
             onPressed: () async {

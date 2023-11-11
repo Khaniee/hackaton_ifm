@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/screens/testPersonnalite.dart';
+import 'package:hackaton_ifm/screens/whoami_quizz_screen.dart';
 import 'package:hackaton_ifm/screens/whoami_summary_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
@@ -41,7 +41,7 @@ class WhoAmIScreen extends StatelessWidget {
                         ),
                         AppText(
                           "Qui-Suis-Je ?",
-                          color: AppColor.primary,
+                          color: AppColor.red,
                           fontSize: 56,
                           isBold: true,
                         ),
@@ -49,6 +49,8 @@ class WhoAmIScreen extends StatelessWidget {
                           child: AppText(
                             "100+ formations à découvrir selon vos personnalité et compétences!",
                             textAlign: TextAlign.center,
+                            fontSize: 14,
+                            color: AppColor.purple,
                           ),
                         ),
                       ],
@@ -62,7 +64,7 @@ class WhoAmIScreen extends StatelessWidget {
                       width: double.maxFinite,
                       child: ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.darkPrimary,
+                            backgroundColor: AppColor.red,
                             foregroundColor: AppColor.white,
                             shape: const StadiumBorder(),
                           ),
@@ -70,8 +72,7 @@ class WhoAmIScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    const TestPersonnaliteScreen(),
+                                builder: (context) => const WhoAmIQuizzScreen(),
                               ),
                             );
                           },
@@ -86,7 +87,7 @@ class WhoAmIScreen extends StatelessWidget {
                       child: OutlinedButton.icon(
                           style: OutlinedButton.styleFrom(
                             backgroundColor: AppColor.white,
-                            foregroundColor: AppColor.darkPrimary,
+                            foregroundColor: AppColor.red,
                             shape: const StadiumBorder(),
                           ),
                           onPressed: () {

@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/screens/formation_list_screen.dart';
-import 'package:hackaton_ifm/screens/quizBonneConduite.dart';
+import 'package:hackaton_ifm/screens/bonne_conduite_quizz_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
@@ -50,7 +50,7 @@ class MenuScreen extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: const Icon(Iconsax.logout),
-          backgroundColor: AppColor.darkPrimary,
+          backgroundColor: AppColor.red,
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -93,7 +93,7 @@ class MenuScreen extends StatelessWidget {
                     children: [
                       Icon(
                         Iconsax.bookmark,
-                        color: AppColor.blackPrimary,
+                        color: AppColor.purple,
                       ),
                       SizedBox(
                         width: 10,
@@ -101,7 +101,7 @@ class MenuScreen extends StatelessWidget {
                       AppText(
                         "Formations enrégistrée",
                         fontSize: AppFontSize.large,
-                        color: AppColor.blackPrimary,
+                        color: AppColor.purple,
                         isBold: true,
                       )
                     ],
@@ -165,7 +165,7 @@ class MenuScreen extends StatelessWidget {
                             "Practical Guide for UI Design",
                             overflow: TextOverflow.ellipsis,
                             fontSize: AppFontSize.large,
-                            color: AppColor.blackPrimary,
+                            color: AppColor.purple,
                             isBold: true,
                           ),
                         ),

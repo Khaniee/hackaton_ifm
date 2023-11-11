@@ -203,29 +203,29 @@ class _WelcomePageState extends State<WelcomePage> {
                       children: [
                         Stack(
                           children: [
-                            Container(
+                            SizedBox(
                               width: double.maxFinite,
                               height: MediaQuery.of(context).size.height / 1.5,
                               child: const RiveAnimation.asset(
                                 "assets/images/rocket.riv",
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               width: double.maxFinite,
                               height: MediaQuery.of(context).size.height / 1.5,
                               child: Column(
                                 children: [
-                                  Expanded(child: SizedBox()),
+                                  const Expanded(child: SizedBox()),
                                   Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
                                     height: 50,
                                     child: SizedBox(
                                       width: 200,
                                       height: 50,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          shape: StadiumBorder(),
+                                          shape: const StadiumBorder(),
                                           backgroundColor: Colors.white,
                                         ),
                                         onPressed: () {
@@ -268,13 +268,13 @@ class _WelcomePageState extends State<WelcomePage> {
             ],
           ),
           Container(
-            alignment: Alignment(0, 0.9),
+            alignment: const Alignment(0, 0.9),
             child: SmoothPageIndicator(
               controller: _controller,
               count: 3,
-              effect: ExpandingDotsEffect(
+              effect: const ExpandingDotsEffect(
                 dotColor: Colors.white54,
-                activeDotColor: Colors.white60,
+                activeDotColor: Colors.white,
               ),
             ),
           ),

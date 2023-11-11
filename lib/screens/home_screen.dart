@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/screens/create_realisation_screen.dart';
+import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/achievement_post_card.dart';
 import 'package:hackaton_ifm/widgets/daily_message_card.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,34 +13,36 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        backgroundColor: AppColor.red,
+        onPressed: () {
+          Navigator.push(
+            context,
+            PageTransition(
+                child: const CreateRealisationScreen(),
+                type: PageTransitionType.leftToRight,
+                duration: const Duration(milliseconds: 250)),
+          );
+        },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: const Icon(Iconsax.message_add),
       ),
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              const DailyMessageCard(),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: ListView(
-                  children: const [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    AchievementPostCard(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    AchievementPostCard(),
-                  ],
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: const Column(
+              children: [
+                DailyMessageCard(),
+                SizedBox(
+                  height: 20,
                 ),
-              )
-            ],
+                AchievementPostCard(),
+                SizedBox(
+                  height: 20,
+                ),
+                AchievementPostCard(),
+              ],
+            ),
           ),
         ),
       ),

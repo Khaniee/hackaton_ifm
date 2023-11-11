@@ -1,20 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/screens/quizBonneConduite.dart';
+import 'package:hackaton_ifm/screens/bonne_conduite_quizz_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rive/rive.dart';
 
-class QuizScreen extends StatefulWidget {
-  const QuizScreen({super.key});
+class BonneConduiteScreen extends StatefulWidget {
+  const BonneConduiteScreen({super.key});
 
   @override
-  State<QuizScreen> createState() => _QuizScreenState();
+  State<BonneConduiteScreen> createState() => _BonneConduiteScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
+class _BonneConduiteScreenState extends State<BonneConduiteScreen> {
   StateMachineController? controller3;
   SMITrigger? _bump;
 // _bump?.fire();
@@ -53,7 +53,7 @@ class _QuizScreenState extends State<QuizScreen> {
               child: AppText(
                 "Soyez la meilleure version de vous même, et contribuez à rendre le monde meilleur grâce à notre quizz.",
                 textAlign: TextAlign.start,
-                fontSize: 15,
+                fontSize: 14,
                 color: AppColor.purple,
               ),
             ),
@@ -112,7 +112,8 @@ class _QuizScreenState extends State<QuizScreen> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const QuizBonneConduite(),
+                            builder: (context) =>
+                                const BonneConduiteQuizzScreen(),
                           ),
                         );
                       },

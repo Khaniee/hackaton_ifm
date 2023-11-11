@@ -15,7 +15,7 @@ class DailyMessageCard extends StatelessWidget {
       width: double.maxFinite,
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        color: Colors.lightBlue,
+        color: AppColor.purple.withOpacity(0.7),
         borderRadius: BorderRadius.circular(20),
       ),
       child: const Column(

@@ -30,7 +30,7 @@ class ResponseElt extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: isSelected
-            ? Border.all(color: AppColor.primary)
+            ? Border.all(color: AppColor.purple)
             : isTrue
                 ? Border.all(color: Colors.green)
                 : isFalse
@@ -75,7 +75,7 @@ class ResponseElt extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Icon(
                       CupertinoIcons.checkmark_alt_circle_fill,
-                      color: AppColor.primary,
+                      color: AppColor.purple,
                     ),
                   )
                 : isTrue
@@ -98,7 +98,7 @@ class ResponseElt extends StatelessWidget {
                             alignment: Alignment.centerRight,
                             child: Icon(
                               CupertinoIcons.circle,
-                              color: AppColor.primary,
+                              color: AppColor.purple,
                             ),
                           ),
           )
