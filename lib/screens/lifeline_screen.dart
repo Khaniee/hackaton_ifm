@@ -221,10 +221,11 @@ class _LifelineState extends State<LifelineScreen> {
       builder: (context) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         child: Container(
-          padding: const EdgeInsets.only(
+          padding: EdgeInsets.only(
             top: 15,
             left: 15,
             right: 15,
+            // bottom: MediaQuery.of(context).viewInsets.bottom + 15,
           ),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.vertical(
@@ -239,7 +240,7 @@ class _LifelineState extends State<LifelineScreen> {
                   top: 15,
                   left: 15,
                   right: 15,
-                  // bottom: MediaQuery.of(context).viewInsets.bottom + 15,
+                  bottom: MediaQuery.of(context).viewInsets.bottom + 15,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
