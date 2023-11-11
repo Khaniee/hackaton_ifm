@@ -1,13 +1,18 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:hackaton_ifm/data/TimeLineData.dart';
+import 'package:hackaton_ifm/providers/user_provider.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/single_timeline.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:indexed/indexed.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
 class LifelineScreen extends StatefulWidget {
@@ -40,10 +45,48 @@ class _LifelineState extends State<LifelineScreen> {
         }
       });
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      UserProvider userProvider =
+          Provider.of<UserProvider>(context, listen: false);
+      String objectifPrincipal = userProvider.objectifPrincipale;
+      if (objectifPrincipal.isEmpty) {
+        showCupertinoDialog(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            title: const Text("Bienvenue!"),
+            content: const Text(
+                "Définissez votre objectif principale pour continuer."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  "Définir plus tard",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  showAddEventBottomSheet(context, isPrincipal: true);
+                },
+                child: const Text(
+                  "Définir maintenant",
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+    String objectifPrincipal = userProvider.objectifPrincipale;
     return Scaffold(
       body: Indexer(
         children: [
@@ -94,12 +137,12 @@ class _LifelineState extends State<LifelineScreen> {
                           padding: EdgeInsets.only(
                               top: 60,
                               left: MediaQuery.of(context).size.height / 6),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              "Construire une entreprise et reussir dans la vie",
+                              userProvider.objectifPrincipale,
                               textAlign: TextAlign.left,
                               softWrap: true,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColor.white,
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
@@ -120,11 +163,14 @@ class _LifelineState extends State<LifelineScreen> {
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () {
-                      showAddEventBottomSheet(context);
+                      showAddEventBottomSheet(context,
+                          isPrincipal: objectifPrincipal.isEmpty);
                     },
                     icon: const Icon(Iconsax.add),
-                    label: const AppText(
-                      "Ajouter Objectif",
+                    label: AppText(
+                      objectifPrincipal.isEmpty
+                          ? "Ajouter un objectif principal"
+                          : "Ajouter un objectif",
                       color: AppColor.white,
                     ),
                   ),
@@ -160,9 +206,14 @@ class _LifelineState extends State<LifelineScreen> {
     );
   }
 
+  final TextEditingController titleInputController = TextEditingController();
+
   Future<dynamic> showAddEventBottomSheet(
-    BuildContext context,
-  ) {
+    BuildContext context, {
+    bool isPrincipal = false,
+  }) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     return showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
@@ -170,11 +221,10 @@ class _LifelineState extends State<LifelineScreen> {
       builder: (context) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         child: Container(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 15,
             left: 15,
             right: 15,
-            bottom: MediaQuery.of(context).viewInsets.bottom + 15,
           ),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.vertical(
@@ -195,20 +245,39 @@ class _LifelineState extends State<LifelineScreen> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const AppText(
-                      "Ajouter un objectif",
-                      fontSize: AppFontSize.large,
-                      isBold: true,
-                      color: AppColor.purple,
-                    ),
+                    if (isPrincipal) ...[
+                      const Center(
+                        child: Icon(
+                          Iconsax.star_1,
+                          size: 64,
+                          color: AppColor.purple,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      )
+                    ],
+                    if (isPrincipal)
+                      const Center(
+                        child: AppText(
+                          "MON OBJECTIF PRINCIPAL",
+                          fontSize: AppFontSize.large,
+                          isBold: true,
+                          color: AppColor.purple,
+                        ),
+                      )
+                    else
+                      const AppText(
+                        "Ajouter un objectif",
+                        fontSize: AppFontSize.large,
+                        isBold: true,
+                        color: AppColor.purple,
+                      ),
                     const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
-                      // controller: titleInputController,
+                      controller: titleInputController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Titre obligatoire";
@@ -232,58 +301,60 @@ class _LifelineState extends State<LifelineScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text("Visibilité"),
-                        // Expanded(child: SizedBox()),
-                        Container(
-                          width: 150,
-                          height: 60,
-                          child: DropdownButtonFormField<String>(
-                            isDense: true,
-                            // iconSize: 12,
-                            alignment: Alignment.bottomCenter,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.grey.shade300,
-                              // labelStyle:
-                              //     TextStyle(color: Colors.grey.shade500),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
+                    if (!isPrincipal) ...[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          const Text("Visibilité"),
+                          // Expanded(child: SizedBox()),
+                          SizedBox(
+                            width: 150,
+                            height: 60,
+                            child: DropdownButtonFormField<String>(
+                              isDense: true,
+                              // iconSize: 12,
+                              alignment: Alignment.bottomCenter,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.grey.shade300,
+                                // labelStyle:
+                                //     TextStyle(color: Colors.grey.shade500),
+                                border: const OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
+                                prefixIcon: selectedObjectif == "Public"
+                                    ? const Icon(
+                                        Iconsax.global,
+                                        color: AppColor.purple,
+                                      )
+                                    : const Icon(Iconsax.lock,
+                                        color: AppColor.purple),
                               ),
-                              prefixIcon: selectedObjectif == "Public"
-                                  ? const Icon(
-                                      Iconsax.global,
-                                      color: AppColor.purple,
-                                    )
-                                  : const Icon(Iconsax.lock,
-                                      color: AppColor.purple),
+                              hint: Text(selectedObjectif),
+                              style: const TextStyle(
+                                color: AppColor.textColor,
+                              ),
+                              items: objectifVisibility.map((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (elt) {
+                                setState(() {
+                                  selectedObjectif = elt!;
+                                });
+                              },
                             ),
-                            hint: Text(selectedObjectif),
-                            style: const TextStyle(
-                              color: AppColor.textColor,
-                            ),
-                            items: objectifVisibility.map((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            onChanged: (elt) {
-                              setState(() {
-                                selectedObjectif = elt!;
-                              });
-                            },
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      )
+                    ],
                     SizedBox(
                       height: 50,
                       width: double.maxFinite,
@@ -292,9 +363,16 @@ class _LifelineState extends State<LifelineScreen> {
                           backgroundColor: AppColor.red,
                         ),
                         onPressed: () {
+                          if (isPrincipal) {
+                            userProvider.updateObjectifPrincipale(
+                                titleInputController.text);
+                          }
+                          titleInputController.text = "";
                           Navigator.pop(context);
                         },
-                        child: const Text("Créer Objectif"),
+                        child: Text(isPrincipal
+                            ? "Posez mon Objectif Principal"
+                            : "Créer Objectif"),
                       ),
                     ),
                     const SizedBox(
