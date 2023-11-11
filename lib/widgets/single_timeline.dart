@@ -217,8 +217,6 @@ class _SingleTimelineState extends State<SingleTimeline> {
         ),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
-            /// This parameter indicates the action would be a default
-            /// default behavior, turns the action's text to bold text.
             onPressed: () {
               Navigator.pop(context);
             },
@@ -234,6 +232,25 @@ class _SingleTimelineState extends State<SingleTimeline> {
             child: const AppText(
               'Afficher les formations correspondante',
               color: AppColor.purple,
+            ),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const AppText(
+              'Éditer',
+              color: AppColor.purple,
+            ),
+          ),
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const AppText(
+              'Supprimer',
+              color: AppColor.red,
             ),
           ),
         ],
