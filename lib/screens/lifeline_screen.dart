@@ -28,17 +28,24 @@ class _LifelineState extends State<LifelineScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      Future.doWhile(() async {
-        await Future.delayed(const Duration(milliseconds: 250));
-        if (inputValue!.value <= 100) {
-          inputValue?.change(inputValue!.value + 3);
-          return true;
-        } else {
-          return false;
-        }
-      });
+    double input = 1;
+    Future.delayed(const Duration(milliseconds: 500)).then((value) {
+      if (input <= 100) {
+        inputValue?.change(input);
+        input++;
+      }
     });
+    // Future.delayed(const Duration(milliseconds: 1000)).then((value) {
+    //   Future.doWhile(() async {
+    //     await Future.delayed(const Duration(milliseconds: 250));
+    //     if (inputValue!.value <= 100) {
+    //       inputValue?.change(inputValue!.value + 3);
+    //       return true;
+    //     } else {
+    //       return false;
+    //     }
+    //   });
+    // });
   }
 
   @override
