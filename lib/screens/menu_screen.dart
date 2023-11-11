@@ -206,12 +206,22 @@ class MenuScreen extends StatelessWidget {
   final double coverHeight = 125;
   final double profileHeight = 60;
 
-  CircleAvatar buildProfileImage() {
-    return CircleAvatar(
-      backgroundColor: AppColor.primary,
-      radius: profileHeight,
-      backgroundImage: AssetImage("assets/images/avatar1.png"),
+  Widget buildProfileImage() {
+    return Container(
+      height: profileHeight * 2,
+      width: profileHeight * 2,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/avatar1.png"),
+          ),
+          border: Border.all(color: AppColor.white, width: 5),
+          borderRadius: BorderRadius.circular(20)),
     );
+    // return CircleAvatar(
+    //   backgroundColor: AppColor.primary,
+    //   radius: profileHeight,
+    //   backgroundImage: AssetImage("assets/images/avatar1.png"),
+    // );
   }
 
   Widget buildBackground() {
