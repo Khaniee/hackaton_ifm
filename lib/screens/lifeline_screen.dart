@@ -3,13 +3,16 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:hackaton_ifm/data/TimeLineData.dart';
+import 'package:hackaton_ifm/providers/user_provider.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/single_timeline.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:indexed/indexed.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
 class LifelineScreen extends StatefulWidget {
@@ -26,8 +29,6 @@ class _LifelineState extends State<LifelineScreen> {
   SMIInput<double>? inputValue;
   List<String> objectifVisibility = ["Public", "Privé"];
   String selectedObjectif = "Public";
-
-  String objectifPrincipal = "";
 
   @override
   void initState() {
@@ -46,6 +47,9 @@ class _LifelineState extends State<LifelineScreen> {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      UserProvider userProvider =
+          Provider.of<UserProvider>(context, listen: false);
+      String objectifPrincipal = userProvider.objectifPrincipale;
       if (objectifPrincipal.isEmpty) {
         showCupertinoDialog(
           context: context,
@@ -54,6 +58,15 @@ class _LifelineState extends State<LifelineScreen> {
             content: const Text(
                 "Définissez votre objectif principale pour continuer."),
             actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  "Définir plus tard",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -72,6 +85,8 @@ class _LifelineState extends State<LifelineScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+    String objectifPrincipal = userProvider.objectifPrincipale;
     return Scaffold(
       body: Indexer(
         children: [
@@ -124,7 +139,7 @@ class _LifelineState extends State<LifelineScreen> {
                               left: MediaQuery.of(context).size.height / 6),
                           child: Center(
                             child: Text(
-                              objectifPrincipal,
+                              userProvider.objectifPrincipale,
                               textAlign: TextAlign.left,
                               softWrap: true,
                               style: const TextStyle(
@@ -191,10 +206,14 @@ class _LifelineState extends State<LifelineScreen> {
     );
   }
 
+  final TextEditingController titleInputController = TextEditingController();
+
   Future<dynamic> showAddEventBottomSheet(
     BuildContext context, {
     bool isPrincipal = false,
   }) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     return showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
@@ -202,11 +221,10 @@ class _LifelineState extends State<LifelineScreen> {
       builder: (context) => BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         child: Container(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 15,
             left: 15,
             right: 15,
-            bottom: MediaQuery.of(context).viewInsets.bottom + 15,
           ),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.vertical(
@@ -259,7 +277,7 @@ class _LifelineState extends State<LifelineScreen> {
                       height: 20,
                     ),
                     TextFormField(
-                      // controller: titleInputController,
+                      controller: titleInputController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Titre obligatoire";
@@ -345,6 +363,11 @@ class _LifelineState extends State<LifelineScreen> {
                           backgroundColor: AppColor.red,
                         ),
                         onPressed: () {
+                          if (isPrincipal) {
+                            userProvider.updateObjectifPrincipale(
+                                titleInputController.text);
+                          }
+                          titleInputController.text = "";
                           Navigator.pop(context);
                         },
                         child: Text(isPrincipal
