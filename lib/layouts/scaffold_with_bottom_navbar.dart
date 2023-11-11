@@ -3,7 +3,7 @@ import 'package:hackaton_ifm/screens/create_realisation_screen.dart';
 import 'package:hackaton_ifm/screens/home_screen.dart';
 import 'package:hackaton_ifm/screens/menu_screen.dart';
 import 'package:hackaton_ifm/screens/bonne_conduite_screen.dart';
-import 'package:hackaton_ifm/screens/timeline_screen.dart';
+import 'package:hackaton_ifm/screens/lifeline_screen.dart';
 import 'package:hackaton_ifm/screens/whoami_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:iconsax/iconsax.dart';
@@ -31,7 +31,7 @@ class _ScaffoldWithBottomNavbarState extends State<ScaffoldWithBottomNavbar> {
     {
       "icon": Iconsax.heart,
       "label": "Ligne de Vie",
-      "screen": const TimelineScreen(),
+      "screen": const LifelineScreen(),
     },
     {
       "icon": Iconsax.menu,

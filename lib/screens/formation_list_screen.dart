@@ -69,32 +69,30 @@ class FormationListScreen extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           showModalBottomSheet(
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              context: context,
-                              builder: (context) => BackdropFilter(
-                                    filter:
-                                        ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                                    child: Container(
-                                      padding: EdgeInsets.only(
-                                        top: 15,
-                                        left: 15,
-                                        right: 15,
-                                        bottom: MediaQuery.of(context)
-                                                .viewInsets
-                                                .bottom +
-                                            15,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            const BorderRadius.vertical(
-                                          top: Radius.circular(20),
-                                        ),
-                                        color: AppColor.white.withOpacity(0.7),
-                                      ),
-                                      child: const FormationDetail(),
-                                    ),
-                                  ));
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            context: context,
+                            builder: (context) => BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                  top: 15,
+                                  left: 15,
+                                  right: 15,
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom +
+                                          15,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(20),
+                                  ),
+                                  color: AppColor.white.withOpacity(0.7),
+                                ),
+                                child: const FormationDetail(),
+                              ),
+                            ),
+                          );
                         },
                         child: SizedBox(
                           width: 150,

@@ -41,6 +41,12 @@ class TimeLineData {
         "title": "Devenir Peintre",
       },
     ];
-    return format_data(data);
+    var formatedData = format_data(data);
+    formatedData.add({
+      "id": 0,
+      "type": "step",
+      "title": "Créer un compte",
+    });
+    return formatedData;
   }
 }
