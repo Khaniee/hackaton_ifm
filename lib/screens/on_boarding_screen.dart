@@ -59,21 +59,10 @@ class _WelcomePageState extends State<WelcomePage> {
           inputValue1?.change(i);
           i++;
         }).then((value) => Future.delayed(Duration(seconds: transition), () {
-                  // code to be executed after 2 seconds
-                  inputValue1?.change(2);
-                  i++;
-                })
-            // .then(
-            //   (value) => Future.delayed(
-            //     Duration(seconds: transition),
-            //     () {
-            //       // code to be executed after 2 seconds
-            //       inputValue1?.change(3);
-            //     },
-            //   ),
-            // ),
-            ));
-    // }
+              // code to be executed after 2 seconds
+              inputValue1?.change(2);
+              i++;
+            })));
   }
 
   @override
@@ -87,10 +76,7 @@ class _WelcomePageState extends State<WelcomePage> {
               Stack(
                 children: [
                   Container(
-                    // color: const Color.fromRGBO(70, 46, 84, 1),
-                    // color: const Color.fromRGBO(56, 0, 59, 1),
-                    color: AppColor.purple,
-
+                    color: AppColor.red,
                     width: double.maxFinite,
                     height: double.maxFinite,
                     child: Column(
@@ -100,9 +86,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           children: [
                             Container(
                               width: double.maxFinite,
-                              // height: MediaQuery.of(context).size.height / 2,
                               height: MediaQuery.of(context).size.height / 1.5,
-
                               child: RiveAnimation.asset(
                                 // "assets/images/age.riv",
                                 "assets/images/mixing_animations.riv",
@@ -129,7 +113,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Container(
-                                    color: AppColor.purple,
+                                    color: AppColor.red,
                                     height: 50,
                                     width: double.maxFinite,
                                   ),
@@ -138,10 +122,6 @@ class _WelcomePageState extends State<WelcomePage> {
                             )
                           ],
                         ),
-                        // const SizedBox(
-                        //   height: 100,
-                        //   // height: 50,
-                        // )
                       ],
                     ),
                   ),
