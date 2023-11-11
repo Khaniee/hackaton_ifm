@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/providers/user_provider.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 
 class CreateRealisationScreen extends StatefulWidget {
   const CreateRealisationScreen({super.key});
@@ -18,11 +20,16 @@ class CreateRealisationScreen extends StatefulWidget {
 class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
   late File imageFile = File("");
   bool isPicked = false;
-
   String dropdownValue = "publique";
+
+  final TextEditingController titleEditingController = TextEditingController();
+  final TextEditingController descriptionEditingController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.offWhite,
@@ -151,6 +158,7 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                       ],
                     ),
                     TextFormField(
+                      controller: titleEditingController,
                       keyboardType: TextInputType.multiline,
                       decoration: const InputDecoration(
                         hintStyle: TextStyle(
@@ -186,6 +194,7 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                       ),
                     ),
                     TextFormField(
+                      controller: descriptionEditingController,
                       keyboardType: TextInputType.multiline,
                       minLines: 5,
                       maxLines: null,
@@ -214,7 +223,9 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.0),
                                     )),
-                                onPressed: () {},
+                                onPressed: () {
+                                  _createRealisation(userProvider);
+                                },
                                 child: const Text("Publier")),
                           ),
                         ),
@@ -228,6 +239,14 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
         ),
       ),
     );
+  }
+
+  void _createRealisation(UserProvider userProvider) {
+    Map realisation = {
+      "title": titleEditingController.text,
+      "description": descriptionEditingController,
+      "image": imageFile
+    };
   }
 
   void pickImage() async {

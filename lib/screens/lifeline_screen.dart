@@ -6,12 +6,14 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:hackaton_ifm/data/TimeLineData.dart';
 import 'package:hackaton_ifm/providers/user_provider.dart';
+import 'package:hackaton_ifm/screens/create_realisation_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/single_timeline.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:indexed/indexed.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 
@@ -88,6 +90,20 @@ class _LifelineState extends State<LifelineScreen> {
     UserProvider userProvider = Provider.of<UserProvider>(context);
     String objectifPrincipal = userProvider.objectifPrincipale;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColor.red,
+        onPressed: () {
+          Navigator.push(
+            context,
+            PageTransition(
+                child: const CreateRealisationScreen(),
+                type: PageTransitionType.leftToRight,
+                duration: const Duration(milliseconds: 250)),
+          );
+        },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: const Icon(Iconsax.message_add),
+      ),
       body: Indexer(
         children: [
           Indexed(
