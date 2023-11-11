@@ -25,8 +25,6 @@ class LifelineScreen extends StatefulWidget {
 }
 
 class _LifelineState extends State<LifelineScreen> {
-  List timelineData = TimeLineData.get();
-
   StateMachineController? controller;
   SMIInput<double>? inputValue;
   List<String> objectifVisibility = ["Public", "Privé"];
@@ -89,6 +87,7 @@ class _LifelineState extends State<LifelineScreen> {
   Widget build(BuildContext context) {
     UserProvider userProvider = Provider.of<UserProvider>(context);
     String objectifPrincipal = userProvider.objectifPrincipale;
+    List timelineData = userProvider.getRealisationsObjectif();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.red,
@@ -383,6 +382,9 @@ class _LifelineState extends State<LifelineScreen> {
                           if (isPrincipal) {
                             userProvider.updateObjectifPrincipale(
                                 titleInputController.text);
+                          } else {
+                            userProvider
+                                .createObjectif(titleInputController.text);
                           }
                           titleInputController.text = "";
                           Navigator.pop(context);
