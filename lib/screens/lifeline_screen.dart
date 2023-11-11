@@ -28,14 +28,17 @@ class _LifelineState extends State<LifelineScreen> {
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<void> animateTree() async {
-    if (inputValue != null) {
-      while (inputValue!.value <= 100) {
-        inputValue?.change(inputValue!.value + 3);
-      }
-    }
+    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
+      Future.doWhile(() async {
+        await Future.delayed(const Duration(milliseconds: 250));
+        if (inputValue!.value <= 100) {
+          inputValue?.change(inputValue!.value + 3);
+          return true;
+        } else {
+          return false;
+        }
+      });
+    });
   }
 
   @override
@@ -117,7 +120,6 @@ class _LifelineState extends State<LifelineScreen> {
                     ),
                     onPressed: () {
                       showAddEventBottomSheet(context);
-                      // inputValue?.change(inputValue!.value + 3);
                     },
                     icon: const Icon(Iconsax.add),
                     label: const AppText(
@@ -289,7 +291,7 @@ class _LifelineState extends State<LifelineScreen> {
                           backgroundColor: AppColor.red,
                         ),
                         onPressed: () {
-                          inputValue?.change(inputValue!.value + 3);
+                          Navigator.pop(context);
                         },
                         child: const Text("Créer Objectif"),
                       ),
