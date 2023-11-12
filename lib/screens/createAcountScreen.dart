@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/screens/loginScreen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
@@ -12,6 +14,17 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  DatabaseReference dbRef = FirebaseDatabase.instance.ref().child("Users");
+
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController nameInput = TextEditingController();
+  TextEditingController emailInput = TextEditingController();
+  TextEditingController passwordInput = TextEditingController();
+
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,150 +90,169 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            const Text(
-                              "Bienvenue dans Learn Life",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  color: Colors.black45),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            const Text(
-                              "Créez votre compte",
-                              style: TextStyle(color: Colors.black45),
-                            ),
-                            const SizedBox(
-                              height: 35,
-                            ),
-                            TextFormField(
-                              // controller: titleInput,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.grey.shade200,
-                                prefixIcon: const Icon(Icons.person),
-                                labelStyle: TextStyle(
-                                  color: Colors.grey.shade500,
-                                  fontSize: 14,
-                                ),
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                ),
-                                labelText: 'Nom complet',
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 40,
                               ),
-                              // The validator receives the text that the user has entered.
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextFormField(
-                              // controller: titleInput,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.grey.shade200,
-                                prefixIcon: const Icon(Icons.mail),
-                                // labelStyle:
-                                //     TextStyle(color: Colors.grey.shade500),
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                ),
-                                labelText: 'Email',
+                              const Text(
+                                "Bienvenue dans Learn Life",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.black45),
                               ),
-                              // The validator receives the text that the user has entered.
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextFormField(
-                              // controller: titleInput,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.grey.shade200,
-                                prefixIcon: Icon(Icons.lock),
-                                // labelStyle:
-                                //     TextStyle(color: Colors.grey.shade500),
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                ),
-                                labelText: 'Mot de passe',
+                              const SizedBox(
+                                height: 15,
                               ),
-                              // The validator receives the text that the user has entered.
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            SizedBox(
-                              width: double.maxFinite,
-                              height: 50,
-                              child: ElevatedButton(
-                                style: const ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
-                                    AppColor.red,
+                              const Text(
+                                "Créez votre compte",
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                              const SizedBox(
+                                height: 35,
+                              ),
+                              TextFormField(
+                                controller: nameInput,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.grey.shade200,
+                                  prefixIcon: const Icon(Icons.person),
+                                  labelStyle: TextStyle(
+                                    color: Colors.grey.shade500,
+                                    fontSize: 14,
                                   ),
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                  labelText: 'Nom complet',
                                 ),
-                                onPressed: () {
-                                  // creation user ici
+                                // The validator receives the text that the user has entered.
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
                                 },
-                                child: const Text("Créer compte"),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                const Text(
-                                  "Vous avez déjà un compte ? ",
-                                  style: TextStyle(color: Colors.black45),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pop(
-                                      context,
-                                    );
-                                  },
-                                  child: const Text(
-                                    "Connectez-vous",
-                                    style: TextStyle(color: AppColor.red),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              TextFormField(
+                                controller: emailInput,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.grey.shade200,
+                                  prefixIcon: const Icon(Icons.mail),
+                                  // labelStyle:
+                                  //     TextStyle(color: Colors.grey.shade500),
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
                                   ),
+                                  labelText: 'Email',
                                 ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                          ],
+                                // The validator receives the text that the user has entered.
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              TextFormField(
+                                obscureText: true,
+                                controller: passwordInput,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.grey.shade200,
+                                  prefixIcon: Icon(Icons.lock),
+                                  // labelStyle:
+                                  //     TextStyle(color: Colors.grey.shade500),
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                  labelText: 'Mot de passe',
+                                ),
+                                // The validator receives the text that the user has entered.
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              SizedBox(
+                                width: double.maxFinite,
+                                height: 50,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                      isLoading
+                                          ? AppColor.divider
+                                          : AppColor.red,
+                                    ),
+                                  ),
+                                  onPressed: isLoading
+                                      ? null
+                                      : () {
+                                          // creation user ici
+                                          setState(() {
+                                            isLoading = true;
+                                          });
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            registerToFirebase();
+                                          }
+                                          setState(() {
+                                            isLoading = false;
+                                          });
+                                        },
+                                  child: const Text("Créer compte"),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  const Text(
+                                    "Vous avez déjà un compte ? ",
+                                    style: TextStyle(color: Colors.black45),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(
+                                        context,
+                                      );
+                                    },
+                                    child: const Text(
+                                      "Connectez-vous",
+                                      style: TextStyle(color: AppColor.red),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -232,5 +264,33 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         ],
       ),
     );
+  }
+
+  void registerToFirebase() {
+    firebaseAuth
+        .createUserWithEmailAndPassword(
+            email: emailInput.text, password: passwordInput.text)
+        .then((result) {
+      User user = result.user!;
+      user.updateDisplayName(nameInput.text);
+      Navigator.pop(context);
+    }).catchError((err) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Error"),
+              content: Text(err.message),
+              actions: [
+                TextButton(
+                  child: const Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
   }
 }

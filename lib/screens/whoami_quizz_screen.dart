@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/data/QuizJob.dart';
-import 'package:hackaton_ifm/providers/user_provider.dart';
+import 'package:hackaton_ifm/providers/current_user_provider.dart';
 import 'package:hackaton_ifm/screens/whoami_summary_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/response_elt.dart';
@@ -29,7 +29,8 @@ class _WhoAmIQuizzScreenState extends State<WhoAmIQuizzScreen> {
   List choicesCategory = [];
   @override
   Widget build(BuildContext context) {
-    UserProvider userProvider = Provider.of<UserProvider>(context);
+    CurrentUserProvider userProvider =
+        Provider.of<CurrentUserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.red,

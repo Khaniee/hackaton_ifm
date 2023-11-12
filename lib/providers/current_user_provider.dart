@@ -35,10 +35,21 @@ class CurrentUserProvider extends ChangeNotifier {
   //   },
   // ];
   List objectif_realisations = [];
-  Map user = {
-    "name": "Khanie",
-    "image": "assets/images/avatar1.png",
-  };
+  Map? user;
+
+  void addCurrentUser(String uid, String email, String name) {
+    user = {
+      'uid': uid,
+      'name': name,
+      'email': email,
+    };
+    notifyListeners();
+  }
+
+  void logout() {
+    user = null;
+    notifyListeners();
+  }
 
   void updateObjectifPrincipale(value) {
     objectifPrincipale = value;

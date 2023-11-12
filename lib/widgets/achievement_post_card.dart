@@ -30,8 +30,11 @@ class AchievementPostCard extends StatelessWidget {
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/avatar1.png"),
+                  image: DecorationImage(
+                    image: realisation["avatar"] != null
+                        ? NetworkImage(realisation["avatar"])
+                        : const AssetImage("assets/images/avatar1.png")
+                            as ImageProvider,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -39,18 +42,18 @@ class AchievementPostCard extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppText(
-                      "Jennifer Cole",
+                      realisation["username"] ?? "Jennifer Cole",
                       isBold: true,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Icon(
                           Iconsax.calendar,
@@ -82,11 +85,13 @@ class AchievementPostCard extends StatelessWidget {
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: Image.file(
-              realisation["image"],
-              width: double.maxFinite,
-              fit: BoxFit.fill,
-            ),
+            child: (realisation["image"] is String)
+                ? Image.asset(realisation["image"])
+                : Image.file(
+                    realisation["image"],
+                    width: double.maxFinite,
+                    fit: BoxFit.fill,
+                  ),
           ),
           const SizedBox(
             height: 10,
@@ -105,19 +110,11 @@ class AchievementPostCard extends StatelessWidget {
                   Lottie.asset(
                     'assets/images/heart_clicked.json',
                     height: 40,
-                    // reverse: true,
-                    // fit: BoxFit.fill,
                   ),
-
-                  // Icon(Iconsax.heart),
-
-                  // SizedBox(
-                  //   width: 10,
-                  // ),
-                  AppText("1,234"),
+                  const AppText("1,234"),
                 ],
               ),
-              Icon(Iconsax.clipboard)
+              const Icon(Iconsax.clipboard)
             ],
           )
         ],

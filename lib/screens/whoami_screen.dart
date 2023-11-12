@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/providers/user_provider.dart';
+import 'package:hackaton_ifm/providers/current_user_provider.dart';
 import 'package:hackaton_ifm/screens/whoami_quizz_screen.dart';
 import 'package:hackaton_ifm/screens/whoami_summary_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
@@ -13,7 +13,8 @@ class WhoAmIScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserProvider userProvider = Provider.of<UserProvider>(context);
+    CurrentUserProvider userProvider =
+        Provider.of<CurrentUserProvider>(context);
     List dernierResultat = userProvider.getlisteJobCategory();
 
     return Scaffold(

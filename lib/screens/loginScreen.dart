@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/layouts/scaffold_with_bottom_navbar.dart';
+import 'package:hackaton_ifm/providers/current_user_provider.dart';
 import 'package:hackaton_ifm/screens/createAcountScreen.dart';
 import 'package:hackaton_ifm/screens/home_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:indexed/indexed.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,8 +17,35 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  TextEditingController emailInput = TextEditingController();
+  TextEditingController passwordInput = TextEditingController();
+
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      CurrentUserProvider userProvider =
+          Provider.of<CurrentUserProvider>(context, listen: false);
+      if (userProvider.user != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const ScaffoldWithBottomNavbar(),
+          ),
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    CurrentUserProvider currentUserProvider =
+        Provider.of<CurrentUserProvider>(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -104,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 35,
                             ),
                             TextFormField(
-                              // controller: titleInput,
+                              controller: emailInput,
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.grey.shade200,
@@ -130,7 +160,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 20,
                             ),
                             TextFormField(
-                              // controller: titleInput,
+                              obscureText: true,
+                              controller: passwordInput,
                               decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.grey.shade200,
@@ -164,12 +195,41 @@ class _LoginScreenState extends State<LoginScreen> {
                                       MaterialStatePropertyAll(AppColor.red),
                                 ),
                                 onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ScaffoldWithBottomNavbar(),
-                                    ),
-                                  );
+                                  firebaseAuth
+                                      .signInWithEmailAndPassword(
+                                          email: emailInput.text,
+                                          password: passwordInput.text)
+                                      .then((value) {
+                                    currentUserProvider.addCurrentUser(
+                                      value.user!.uid,
+                                      value.user!.email!,
+                                      value.user!.displayName!,
+                                    );
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ScaffoldWithBottomNavbar(),
+                                      ),
+                                    );
+                                  }).catchError((err) {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text("Error"),
+                                            content: Text(err.message),
+                                            actions: [
+                                              TextButton(
+                                                child: const Text("Ok"),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              )
+                                            ],
+                                          );
+                                        });
+                                  });
+                                  ;
                                 },
                                 child: const Text("Se connecter"),
                               ),

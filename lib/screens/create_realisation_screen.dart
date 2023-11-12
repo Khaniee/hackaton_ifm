@@ -145,18 +145,18 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Expanded(
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               AppText(
-                                "Jennifer Cole",
+                                userProvider.user!["name"],
                                 isBold: true,
                               ),
                               SizedBox(
                                 height: 10,
                               ),
-                              Row(
+                              const Row(
                                 children: [
                                   Icon(
                                     Iconsax.calendar,
@@ -257,6 +257,7 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                                       imageFile,
                                     );
                                     realisationProvider.createRealisation(
+                                      userProvider.user!["name"],
                                       titleEditingController.text,
                                       descriptionEditingController.text,
                                       imageFile,

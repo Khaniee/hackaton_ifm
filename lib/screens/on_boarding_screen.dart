@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/screens/loginScreen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
@@ -54,19 +55,33 @@ class _WelcomePageState extends State<WelcomePage> {
       // code to be executed after 2 seconds
       inputValue1?.change(i);
       i++;
-    }).then((value) => Future.delayed(Duration(seconds: transition), () {
-          // code to be executed after 2 seconds
-          inputValue1?.change(i);
-          i++;
-        }).then((value) => Future.delayed(Duration(seconds: transition), () {
-              // code to be executed after 2 seconds
-              inputValue1?.change(2);
-              i++;
-            })));
+    }).then(
+      (value) => Future.delayed(Duration(seconds: transition), () {
+        // code to be executed after 2 seconds
+        inputValue1?.change(i);
+        i++;
+      }).then(
+        (value) => Future.delayed(
+          Duration(seconds: transition),
+          () {
+            // code to be executed after 2 seconds
+            inputValue1?.change(2);
+            i++;
+          },
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    //  final fb = FirebaseDatabase.instanoce;
+    // final ref = fb.ref();
+    // // ref.child("Name").set("fooo");
+    // ref.child("Name").once().then((DatabaseEvent value) {
+    //   print(value.snapshot.value);
+    // });
+
     return Scaffold(
       body: Stack(
         children: [

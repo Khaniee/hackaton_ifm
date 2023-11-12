@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/providers/current_user_provider.dart';
 import 'package:hackaton_ifm/screens/formation_list_screen.dart';
 import 'package:hackaton_ifm/screens/bonne_conduite_quizz_screen.dart';
 import 'package:hackaton_ifm/screens/on_boarding_screen.dart';
@@ -10,12 +11,15 @@ import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    CurrentUserProvider userProvider =
+        Provider.of<CurrentUserProvider>(context, listen: false);
     double top = coverHeight - (profileHeight);
     return DefaultTabController(
       length: 1,
@@ -40,15 +44,11 @@ class MenuScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          child: WelcomePage(),
-                          type: PageTransitionType.fade,
-                          duration: const Duration(milliseconds: 400),
-                        ),
-                      );
+                      userProvider.logout();
+                      int count = 0;
+                      Navigator.popUntil(context, (route) {
+                        return count++ == 3;
+                      });
                     },
                     child: const Text(
                       "Se déconnecter",
@@ -81,14 +81,14 @@ class MenuScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             buildProfileImage(),
-                            SizedBox(height: 10),
-                            const AppText(
-                              "Nomsasa",
+                            const SizedBox(height: 10),
+                            AppText(
+                              userProvider.user!["name"],
                               fontSize: AppFontSize.large,
                               isBold: true,
                             ),
-                            SizedBox(height: 5),
-                            AppText("johndoe@gmail.com")
+                            const SizedBox(height: 5),
+                            AppText(userProvider.user!["email"])
                           ],
                         ),
                       ),
@@ -223,17 +223,12 @@ class MenuScreen extends StatelessWidget {
       height: profileHeight * 2,
       width: profileHeight * 2,
       decoration: BoxDecoration(
-          image: DecorationImage(
+          image: const DecorationImage(
             image: AssetImage("assets/images/avatar1.png"),
           ),
           border: Border.all(color: AppColor.white, width: 5),
           borderRadius: BorderRadius.circular(20)),
     );
-    // return CircleAvatar(
-    //   backgroundColor: AppColor.primary,
-    //   radius: profileHeight,
-    //   backgroundImage: AssetImage("assets/images/avatar1.png"),
-    // );
   }
 
   Widget buildBackground() {
