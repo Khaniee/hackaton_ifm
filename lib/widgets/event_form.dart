@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/providers/user_provider.dart';
+import 'package:hackaton_ifm/providers/current_user_provider.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
@@ -30,8 +30,8 @@ class _EventFormState extends State<EventForm> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      UserProvider userProvider =
-          Provider.of<UserProvider>(context, listen: false);
+      CurrentUserProvider userProvider =
+          Provider.of<CurrentUserProvider>(context, listen: false);
       if (widget.event != null && widget.event!["id"] != null) {
         titleInputController.text = widget.event!["title"];
       }
@@ -43,8 +43,8 @@ class _EventFormState extends State<EventForm> {
 
   @override
   Widget build(BuildContext context) {
-    UserProvider userProvider =
-        Provider.of<UserProvider>(context, listen: false);
+    CurrentUserProvider userProvider =
+        Provider.of<CurrentUserProvider>(context, listen: false);
 
     return Form(
       child: Container(

@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/providers/user_provider.dart';
+import 'package:hackaton_ifm/providers/current_user_provider.dart';
+import 'package:hackaton_ifm/providers/realisation_provider.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
@@ -42,8 +43,10 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    UserProvider userProvider =
-        Provider.of<UserProvider>(context, listen: false);
+    CurrentUserProvider userProvider =
+        Provider.of<CurrentUserProvider>(context, listen: false);
+    RealisationProvider realisationProvider =
+        Provider.of<RealisationProvider>(context);
     bool isModification =
         widget.realisation != null && widget.realisation!["id"] != null;
     return Scaffold(
@@ -249,6 +252,11 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                                     );
                                   } else {
                                     userProvider.createRealisation(
+                                      titleEditingController.text,
+                                      descriptionEditingController.text,
+                                      imageFile,
+                                    );
+                                    realisationProvider.createRealisation(
                                       titleEditingController.text,
                                       descriptionEditingController.text,
                                       imageFile,

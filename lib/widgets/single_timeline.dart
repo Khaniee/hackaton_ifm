@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/providers/user_provider.dart';
+import 'package:hackaton_ifm/providers/current_user_provider.dart';
 import 'package:hackaton_ifm/screens/create_realisation_screen.dart';
 import 'package:hackaton_ifm/screens/lifeline_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
@@ -214,8 +214,8 @@ class _SingleTimelineState extends State<SingleTimeline> {
   }
 
   Future<dynamic> showModalPopup(BuildContext context, dynamic event) {
-    UserProvider userProvider =
-        Provider.of<UserProvider>(context, listen: false);
+    CurrentUserProvider userProvider =
+        Provider.of<CurrentUserProvider>(context, listen: false);
 
     return showCupertinoModalPopup(
       context: context,
