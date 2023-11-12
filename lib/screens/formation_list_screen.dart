@@ -10,7 +10,13 @@ import 'package:iconsax/iconsax.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FormationListScreen extends StatelessWidget {
-  const FormationListScreen({super.key});
+  const FormationListScreen({
+    super.key,
+    required this.titre,
+    required this.description,
+  });
+  final String titre;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -32,168 +38,188 @@ class FormationListScreen extends StatelessWidget {
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SingleChildScrollView(
-            child: Container(
-              height: double.maxFinite,
-              child: ListView.builder(
-                itemCount: formation_list_category.length,
-                itemBuilder: (BuildContext context, int index) {
-                  String cle = formation_list_category.keys.elementAt(index);
-                  dynamic valeur = formation_list_category[cle];
+          child: Column(
+            children: [
+              ProfessionCard(
+                titre: titre,
+                description: description,
+              ),
+              Expanded(
+                child: Container(
+                  height: double.maxFinite,
+                  child: ListView.builder(
+                    itemCount: formation_list_category.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      String cle =
+                          formation_list_category.keys.elementAt(index);
+                      dynamic valeur = formation_list_category[cle];
 
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      // const ProfessionCard(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Column(
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Icon(
-                                Iconsax.folder_2,
-                                color: AppColor.purple,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              AppText(
-                                "$cle",
-                                fontSize: AppFontSize.extraLarge,
-                                color: AppColor.purple,
-                                isBold: true,
-                              )
-                            ],
-                          ),
                           const SizedBox(
                             height: 20,
                           ),
-                          Container(
-                            padding: const EdgeInsets.only(left: 20),
-                            height: 270,
-                            width: double.maxFinite,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: valeur.length,
-                              itemBuilder: (BuildContext context, index2) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (context) => BackdropFilter(
-                                        filter: ImageFilter.blur(
-                                            sigmaX: 5, sigmaY: 5),
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                            top: 15,
-                                            left: 15,
-                                            right: 15,
-                                            bottom: MediaQuery.of(context)
-                                                    .viewInsets
-                                                    .bottom +
-                                                15,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.vertical(
-                                              top: Radius.circular(20),
+                          Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Icon(
+                                    Iconsax.folder_2,
+                                    color: AppColor.purple,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  AppText(
+                                    "$cle",
+                                    fontSize: AppFontSize.extraLarge,
+                                    color: AppColor.purple,
+                                    isBold: true,
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(left: 20),
+                                height: 270,
+                                width: double.maxFinite,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: valeur.length,
+                                  itemBuilder: (BuildContext context, index2) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          builder: (context) => BackdropFilter(
+                                            filter: ImageFilter.blur(
+                                                sigmaX: 5, sigmaY: 5),
+                                            child: Container(
+                                              padding: EdgeInsets.only(
+                                                top: 15,
+                                                left: 15,
+                                                right: 15,
+                                                bottom: MediaQuery.of(context)
+                                                        .viewInsets
+                                                        .bottom +
+                                                    15,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.vertical(
+                                                  top: Radius.circular(20),
+                                                ),
+                                                color: AppColor.white
+                                                    .withOpacity(0.7),
+                                              ),
+                                              child: FormationDetail(
+                                                image:
+                                                    "assets/images/formation/${valeur[index2]["image"]}",
+                                                titre: valeur[index2]["titre"],
+                                                auteur: valeur[index2]
+                                                    ["auteur"],
+                                                support: valeur[index2]
+                                                    ["support"],
+                                                langue: valeur[index2]
+                                                    ["langue"],
+                                                description: valeur[index2]
+                                                    ["description"],
+                                                lien: valeur[index2]["lien"],
+                                              ),
                                             ),
-                                            color:
-                                                AppColor.white.withOpacity(0.7),
                                           ),
-                                          child: FormationDetail(
-                                              image:
-                                                  "assets/images/formation/${valeur[index2]["image"]}"),
+                                        );
+                                      },
+                                      child: SizedBox(
+                                        width: 150,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                  right: 10),
+                                              height: 200,
+                                              decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.black26
+                                                          .withOpacity(0.17),
+                                                      blurRadius: 20,
+                                                      offset:
+                                                          const Offset(0, 25))
+                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                color: Colors.white,
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: AssetImage(
+                                                      "assets/images/formation/${valeur[index2]["image"]}"),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5),
+                                              child: AppText(
+                                                "${valeur[index2]["titre"]}",
+                                                overflow: TextOverflow.ellipsis,
+                                                fontSize: AppFontSize.large,
+                                                color: AppColor.purple,
+                                                isBold: true,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.baseline,
+                                                textBaseline:
+                                                    TextBaseline.alphabetic,
+                                                children: [
+                                                  const Icon(
+                                                    Iconsax.user,
+                                                    size: 14,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  AppText(
+                                                    "${valeur[index2]["auteur"]}",
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     );
                                   },
-                                  child: SizedBox(
-                                    width: 150,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(right: 10),
-                                          height: 200,
-                                          decoration: BoxDecoration(
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.black26
-                                                      .withOpacity(0.17),
-                                                  blurRadius: 20,
-                                                  offset: const Offset(0, 25))
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            color: Colors.white,
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: AssetImage(
-                                                  "assets/images/formation/${valeur[index2]["image"]}"),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          child: AppText(
-                                            "Practical Guide for UI Design",
-                                            overflow: TextOverflow.ellipsis,
-                                            fontSize: AppFontSize.large,
-                                            color: AppColor.purple,
-                                            isBold: true,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        const Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.baseline,
-                                            textBaseline:
-                                                TextBaseline.alphabetic,
-                                            children: [
-                                              Icon(
-                                                Iconsax.user,
-                                                size: 14,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              AppText(
-                                                "N'Oel Naming",
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
-                      ),
-                    ],
-                  );
-                },
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
@@ -205,9 +231,21 @@ class FormationDetail extends StatelessWidget {
   const FormationDetail({
     super.key,
     this.image,
+    this.titre,
+    this.auteur,
+    this.support,
+    this.langue,
+    this.description,
+    this.lien,
   });
 
   final String? image;
+  final String? titre;
+  final String? auteur;
+  final String? support;
+  final String? langue;
+  final String? description;
+  final String? lien;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -242,8 +280,8 @@ class FormationDetail extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const AppText(
-          "Practical Guide for UI Design",
+        AppText(
+          titre ?? "Practical Guide for UI Design",
           overflow: TextOverflow.ellipsis,
           fontSize: AppFontSize.large,
           color: AppColor.purple,
@@ -264,23 +302,23 @@ class FormationDetail extends StatelessWidget {
             color: AppColor.white.withOpacity(0.8),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
                 children: [
-                  AppText("Support"),
-                  SizedBox(height: 10),
+                  const AppText("Support"),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Iconsax.video_horizontal,
                         color: AppColor.textColor,
                         size: 16,
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       AppText(
-                        "Video",
+                        support ?? "Video",
                         isBold: true,
                       ),
                     ],
@@ -293,14 +331,14 @@ class FormationDetail extends StatelessWidget {
                   SizedBox(height: 10),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Iconsax.user,
                         color: AppColor.textColor,
                         size: 16,
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       AppText(
-                        "N'Oel Naming",
+                        auteur ?? "N'Oel Naming",
                         isBold: true,
                       ),
                     ],
@@ -309,10 +347,10 @@ class FormationDetail extends StatelessWidget {
               ),
               Column(
                 children: [
-                  AppText("Langue"),
+                  const AppText("Langue"),
                   SizedBox(height: 10),
                   AppText(
-                    "English",
+                    langue ?? "English",
                     isBold: true,
                   ),
                 ],
@@ -323,19 +361,20 @@ class FormationDetail extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const Column(
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
+            const AppText(
               "Description :",
               color: AppColor.purple,
               isBold: true,
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             AppText(
-              "Lorem ipsum dolor si amet. Lorem ipsum dolor si amet. Lorem ipsum dolor si amet. Lorem ipsum dolor si amet.Lorem ipsum dolor si amet.",
+              description ??
+                  "Lorem ipsum dolor si amet. Lorem ipsum dolor si amet. Lorem ipsum dolor si amet. Lorem ipsum dolor si amet.Lorem ipsum dolor si amet.",
               softWrap: true,
             ),
           ],
@@ -352,7 +391,8 @@ class FormationDetail extends StatelessWidget {
               shape: const StadiumBorder(),
             ),
             onPressed: () async {
-              final Uri url = Uri.parse('http://tiny.cc/guvdvz');
+              String urlString = lien ?? 'http://tiny.cc/guvdvz';
+              final Uri url = Uri.parse(urlString);
               if (!await launchUrl(url)) {
                 throw Exception('Could not launch $url');
               }
@@ -392,8 +432,11 @@ Container buildFormationCover(String? image) {
 class ProfessionCard extends StatelessWidget {
   const ProfessionCard({
     super.key,
+    required this.titre,
+    required this.description,
   });
-
+  final String titre;
+  final String description;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -416,12 +459,13 @@ class ProfessionCard extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(
-                  "Designer & Graphiste",
+                  // "Designer & Graphiste",
+                  titre,
                   isBold: true,
                   fontSize: AppFontSize.large,
                 ),
@@ -429,7 +473,8 @@ class ProfessionCard extends StatelessWidget {
                   height: 5,
                 ),
                 AppText(
-                  "Lorem Ipsum dolor si amet. Lorem Ipsum dolor si amet. Lorem Ipsum dolor si amet. Lorem Ipsum dolor si amet.",
+                  // "Lorem Ipsum dolor si amet. Lorem Ipsum dolor si amet. Lorem Ipsum dolor si amet. Lorem Ipsum dolor si amet.",
+                  description,
                   softWrap: true,
                 ),
               ],
