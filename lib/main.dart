@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/layouts/scaffold_with_bottom_navbar.dart';
 import 'package:hackaton_ifm/providers/realisation_provider.dart';
 import 'package:hackaton_ifm/providers/current_user_provider.dart';
-import 'package:hackaton_ifm/screens/on_boarding_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: AppColor.offWhite,
         ),
-        home: const WelcomePage(),
+        home: const ScaffoldWithBottomNavbar(),
       ),
     );
   }

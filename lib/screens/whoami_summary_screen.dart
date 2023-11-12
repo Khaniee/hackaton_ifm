@@ -180,7 +180,10 @@ class ProfessionCard extends StatelessWidget {
                         Navigator.push(
                           context,
                           PageTransition(
-                            child: const FormationListScreen(),
+                            child: FormationListScreen(
+                              titre: title,
+                              description: description,
+                            ),
                             type: PageTransitionType.fade,
                           ),
                         );

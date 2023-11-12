@@ -5,6 +5,7 @@ import 'package:hackaton_ifm/providers/current_user_provider.dart';
 import 'package:hackaton_ifm/screens/createAcountScreen.dart';
 import 'package:hackaton_ifm/screens/home_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
+import 'package:hackaton_ifm/utils/core.dart';
 import 'package:indexed/indexed.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -105,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Container(
                       width: 350,
+                      // width: MediaQuery.of(context).size.width / 3,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: Colors.white,

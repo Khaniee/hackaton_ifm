@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/layouts/responsive_layout.dart';
 import 'package:hackaton_ifm/screens/loginScreen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:page_transition/page_transition.dart';
@@ -223,7 +224,8 @@ class _WelcomePageState extends State<WelcomePage> {
                       children: [
                         const Expanded(child: SizedBox()),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          alignment: Alignment.center,
                           height: 50,
                           child: SizedBox(
                             width: 200,
@@ -295,31 +297,65 @@ class SlideText extends StatelessWidget {
         horizontal: 30,
         vertical: 100,
       ),
-      child: Column(
-        children: [
-          Container(
-            width: double.maxFinite,
-            child: Text(
-              textAlign: TextAlign.start,
-              title,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: title_size,
-                fontWeight: FontWeight.bold,
+      child: ResponsiveLayout(
+        mobileScaffold: Column(
+          children: [
+            Container(
+              width: double.maxFinite,
+              child: Text(
+                textAlign: TextAlign.start,
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: title_size,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            description,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 15,
+            SizedBox(
+              height: 20,
             ),
-          ),
-        ],
+            Text(
+              description,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
+            ),
+          ],
+        ),
+        desktopScaffold: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  // width: double.maxFinite,
+                  child: Text(
+                    textAlign: TextAlign.start,
+                    title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: title_size,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

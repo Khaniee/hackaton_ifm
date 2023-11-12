@@ -163,11 +163,11 @@ class MenuScreen extends StatelessWidget {
                                         ),
                                         color: AppColor.white.withOpacity(0.7),
                                       ),
-                                      child: const FormationDetail(),
+                                      child: FormationDetail(),
                                     ),
                                   ),
                                 ),
-                            child: buildFormationCover()),
+                            child: buildFormationCover(null)),
                         const SizedBox(
                           height: 10,
                         ),
