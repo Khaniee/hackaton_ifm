@@ -5,7 +5,7 @@ import 'package:uuid/uuid.dart';
 
 Uuid uuid = const Uuid();
 
-class UserProvider extends ChangeNotifier {
+class CurrentUserProvider extends ChangeNotifier {
   String objectifPrincipale = "";
   List listeJobCategory = [];
   // List objectif_realisations = [
@@ -35,6 +35,10 @@ class UserProvider extends ChangeNotifier {
   //   },
   // ];
   List objectif_realisations = [];
+  Map user = {
+    "name": "Khanie",
+    "image": "assets/images/avatar1.png",
+  };
 
   void updateObjectifPrincipale(value) {
     objectifPrincipale = value;

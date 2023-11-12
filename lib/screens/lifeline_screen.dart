@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hackaton_ifm/providers/user_provider.dart';
+import 'package:hackaton_ifm/providers/current_user_provider.dart';
 import 'package:hackaton_ifm/screens/create_realisation_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/single_timeline.dart';
@@ -43,8 +43,8 @@ class _LifelineState extends State<LifelineScreen> {
     });
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      UserProvider userProvider =
-          Provider.of<UserProvider>(context, listen: false);
+      CurrentUserProvider userProvider =
+          Provider.of<CurrentUserProvider>(context, listen: false);
       String objectifPrincipal = userProvider.objectifPrincipale;
       if (objectifPrincipal.isEmpty) {
         showCupertinoDialog(
@@ -81,7 +81,8 @@ class _LifelineState extends State<LifelineScreen> {
 
   @override
   Widget build(BuildContext context) {
-    UserProvider userProvider = Provider.of<UserProvider>(context);
+    CurrentUserProvider userProvider =
+        Provider.of<CurrentUserProvider>(context);
     String objectifPrincipal = userProvider.objectifPrincipale;
     List timelineData = userProvider.getRealisationsObjectif();
     return Scaffold(

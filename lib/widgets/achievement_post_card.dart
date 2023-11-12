@@ -7,7 +7,10 @@ import 'package:lottie/lottie.dart';
 class AchievementPostCard extends StatelessWidget {
   const AchievementPostCard({
     super.key,
+    required this.realisation,
   });
+
+  final Map realisation;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class AchievementPostCard extends StatelessWidget {
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: AssetImage("assets/images/avatar1.png"),
                     fit: BoxFit.fill,
                   ),
@@ -58,7 +61,7 @@ class AchievementPostCard extends StatelessWidget {
                           width: 5,
                         ),
                         AppText(
-                          "18 Sept 2023 à 18:00",
+                          "18 Sept 2023",
                         ),
                       ],
                     )
@@ -70,8 +73,8 @@ class AchievementPostCard extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const AppText(
-            "Lorem Ipsum dolor si amet",
+          AppText(
+            realisation["title"],
             isBold: true,
           ),
           const SizedBox(
@@ -79,8 +82,8 @@ class AchievementPostCard extends StatelessWidget {
           ),
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: Image.asset(
-              "assets/images/achievement1.jpg",
+            child: Image.file(
+              realisation["image"],
               width: double.maxFinite,
               fit: BoxFit.fill,
             ),
@@ -88,8 +91,8 @@ class AchievementPostCard extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const AppText(
-            "Lorem Ipsum dolor si amet. Lorem Ipsum dolor si amet. Lorem Ipsum dolor si amet.",
+          AppText(
+            realisation["description"],
           ),
           const SizedBox(
             height: 20,
