@@ -2,13 +2,17 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/providers/user_provider.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 
 class CreateRealisationScreen extends StatefulWidget {
-  const CreateRealisationScreen({super.key});
+  const CreateRealisationScreen({super.key, this.realisation});
+
+  final Map? realisation;
 
   @override
   State<CreateRealisationScreen> createState() =>
@@ -18,11 +22,30 @@ class CreateRealisationScreen extends StatefulWidget {
 class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
   late File imageFile = File("");
   bool isPicked = false;
-
   String dropdownValue = "publique";
+
+  final TextEditingController titleEditingController = TextEditingController();
+  final TextEditingController descriptionEditingController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.realisation != null && widget.realisation!["id"] != null) {
+      titleEditingController.text = widget.realisation!["title"];
+      descriptionEditingController.text = widget.realisation!["description"];
+      isPicked = widget.realisation!["image"] == null;
+      imageFile = widget.realisation!["image"];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+    bool isModification =
+        widget.realisation != null && widget.realisation!["id"] != null;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.offWhite,
@@ -151,6 +174,7 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                       ],
                     ),
                     TextFormField(
+                      controller: titleEditingController,
                       keyboardType: TextInputType.multiline,
                       decoration: const InputDecoration(
                         hintStyle: TextStyle(
@@ -186,6 +210,7 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                       ),
                     ),
                     TextFormField(
+                      controller: descriptionEditingController,
                       keyboardType: TextInputType.multiline,
                       minLines: 5,
                       maxLines: null,
@@ -214,8 +239,26 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.0),
                                     )),
-                                onPressed: () {},
-                                child: const Text("Publier")),
+                                onPressed: () {
+                                  if (isModification) {
+                                    userProvider.updateRealisation(
+                                      widget.realisation!["id"],
+                                      titleEditingController.text,
+                                      descriptionEditingController.text,
+                                      imageFile,
+                                    );
+                                  } else {
+                                    userProvider.createRealisation(
+                                      titleEditingController.text,
+                                      descriptionEditingController.text,
+                                      imageFile,
+                                    );
+                                  }
+                                  Navigator.pop(context);
+                                },
+                                child: Text(isModification
+                                    ? "Sauvegarder"
+                                    : "Publier")),
                           ),
                         ),
                       ],

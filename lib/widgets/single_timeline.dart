@@ -1,25 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/providers/user_provider.dart';
+import 'package:hackaton_ifm/screens/create_realisation_screen.dart';
+import 'package:hackaton_ifm/screens/lifeline_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
-import 'package:hackaton_ifm/widgets/timelineCard.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class SingleTimeline extends StatefulWidget {
-  SingleTimeline({
+  const SingleTimeline({
     super.key,
     this.is_first = false,
     this.is_last = false,
     this.is_step = false,
     this.image = "",
+    this.event,
     required this.title,
   });
-  bool is_first;
-  bool is_step;
-  bool is_last;
-  String image;
-  String title;
+  final bool is_first;
+  final bool is_step;
+  final bool is_last;
+  final dynamic image;
+  final String title;
+  final Map? event;
 
   @override
   State<SingleTimeline> createState() => _SingleTimelineState();
@@ -86,7 +92,7 @@ class _SingleTimelineState extends State<SingleTimeline> {
                             borderRadius: BorderRadius.circular(10)),
                         child: IconButton(
                           onPressed: () {
-                            showModalPopup(context);
+                            showModalPopup(context, widget.event);
                           },
                           color: AppColor.purple,
                           icon: const Icon(Iconsax.more),
@@ -140,8 +146,11 @@ class _SingleTimelineState extends State<SingleTimeline> {
                                   color: Colors.white,
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: AssetImage(
-                                        "assets/images/${widget.image}"),
+                                    image: (widget.image is String)
+                                        ? AssetImage(
+                                                "assets/images/${widget.image}")
+                                            as ImageProvider
+                                        : FileImage(widget.image),
                                   )),
                             ),
                             const SizedBox(
@@ -187,7 +196,7 @@ class _SingleTimelineState extends State<SingleTimeline> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: IconButton(
                                 onPressed: () {
-                                  showModalPopup(context);
+                                  showModalPopup(context, widget.event);
                                 },
                                 color: AppColor.purple,
                                 icon: const Icon(Iconsax.more),
@@ -204,7 +213,10 @@ class _SingleTimelineState extends State<SingleTimeline> {
     );
   }
 
-  Future<dynamic> showModalPopup(BuildContext context) {
+  Future<dynamic> showModalPopup(BuildContext context, dynamic event) {
+    UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: false);
+
     return showCupertinoModalPopup(
       context: context,
       builder: (context) => CupertinoActionSheet(
@@ -219,24 +231,19 @@ class _SingleTimelineState extends State<SingleTimeline> {
           CupertinoActionSheetAction(
             onPressed: () {
               Navigator.pop(context);
-            },
-            child: const AppText(
-              'Afficher détail',
-              color: AppColor.purple,
-            ),
-          ),
-          CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const AppText(
-              'Afficher les formations correspondante',
-              color: AppColor.purple,
-            ),
-          ),
-          CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.pop(context);
+              if (event["type"] == "step") {
+                showAddEventBottomSheet(context, event: event);
+              } else {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      child: CreateRealisationScreen(
+                        realisation: event,
+                      ),
+                      type: PageTransitionType.leftToRight,
+                      duration: const Duration(milliseconds: 250)),
+                );
+              }
             },
             child: const AppText(
               'Éditer',
@@ -246,6 +253,7 @@ class _SingleTimelineState extends State<SingleTimeline> {
           CupertinoActionSheetAction(
             isDestructiveAction: true,
             onPressed: () {
+              userProvider.deleteRealisation(event["id"]);
               Navigator.pop(context);
             },
             child: const AppText(

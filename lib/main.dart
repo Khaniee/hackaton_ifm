@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/providers/user_provider.dart';
+import 'package:hackaton_ifm/screens/lifeline_screen.dart';
 import 'package:hackaton_ifm/screens/on_boarding_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:provider/provider.dart';
