@@ -204,7 +204,7 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                             : Container(
                                 height: 200,
                                 width: double.maxFinite,
-                                color: AppColor.purple,
+                                color: AppColor.purple.withOpacity(0.7),
                                 child: const Icon(
                                   Iconsax.gallery_add,
                                   color: AppColor.white,
