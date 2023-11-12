@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/data/Formation.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
@@ -12,6 +14,7 @@ class FormationListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map formation_list_category = Formation().get();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.offWhite,
@@ -30,141 +33,166 @@ class FormationListScreen extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const ProfessionCard(),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Icon(
-                      Iconsax.folder_2,
-                      color: AppColor.purple,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    AppText(
-                      "Formation Débutants",
-                      fontSize: AppFontSize.extraLarge,
-                      color: AppColor.purple,
-                      isBold: true,
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 20),
-                  height: 300,
-                  width: double.maxFinite,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 3,
-                    itemBuilder: (BuildContext context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            context: context,
-                            builder: (context) => BackdropFilter(
-                              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                  top: 15,
-                                  left: 15,
-                                  right: 15,
-                                  bottom:
-                                      MediaQuery.of(context).viewInsets.bottom +
-                                          15,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(20),
-                                  ),
-                                  color: AppColor.white.withOpacity(0.7),
-                                ),
-                                child: const FormationDetail(),
-                              ),
-                            ),
-                          );
-                        },
-                        child: SizedBox(
-                          width: 150,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+            child: Container(
+              height: double.maxFinite,
+              child: ListView.builder(
+                itemCount: formation_list_category.length,
+                itemBuilder: (BuildContext context, int index) {
+                  String cle = formation_list_category.keys.elementAt(index);
+                  dynamic valeur = formation_list_category[cle];
+
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // const ProfessionCard(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Container(
-                                margin: const EdgeInsets.only(right: 10),
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black26.withOpacity(0.17),
-                                        blurRadius: 20,
-                                        offset: const Offset(0, 25))
-                                  ],
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.white,
-                                  image: const DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(
-                                        "assets/images/bookcover1.jpg"),
-                                  ),
-                                ),
+                              Icon(
+                                Iconsax.folder_2,
+                                color: AppColor.purple,
                               ),
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                width: 10,
                               ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                child: AppText(
-                                  "Practical Guide for UI Design",
-                                  overflow: TextOverflow.ellipsis,
-                                  fontSize: AppFontSize.large,
-                                  color: AppColor.purple,
-                                  isBold: true,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                child: Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.baseline,
-                                  textBaseline: TextBaseline.alphabetic,
-                                  children: [
-                                    Icon(
-                                      Iconsax.user,
-                                      size: 14,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    AppText(
-                                      "N'Oel Naming",
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              AppText(
+                                "$cle",
+                                fontSize: AppFontSize.extraLarge,
+                                color: AppColor.purple,
+                                isBold: true,
+                              )
                             ],
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(left: 20),
+                            height: 270,
+                            width: double.maxFinite,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: valeur.length,
+                              itemBuilder: (BuildContext context, index2) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) => BackdropFilter(
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 5, sigmaY: 5),
+                                        child: Container(
+                                          padding: EdgeInsets.only(
+                                            top: 15,
+                                            left: 15,
+                                            right: 15,
+                                            bottom: MediaQuery.of(context)
+                                                    .viewInsets
+                                                    .bottom +
+                                                15,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.vertical(
+                                              top: Radius.circular(20),
+                                            ),
+                                            color:
+                                                AppColor.white.withOpacity(0.7),
+                                          ),
+                                          child: FormationDetail(
+                                              image:
+                                                  "assets/images/formation/${valeur[index2]["image"]}"),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    width: 150,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(right: 10),
+                                          height: 200,
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.black26
+                                                      .withOpacity(0.17),
+                                                  blurRadius: 20,
+                                                  offset: const Offset(0, 25))
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            color: Colors.white,
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: AssetImage(
+                                                  "assets/images/formation/${valeur[index2]["image"]}"),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          child: AppText(
+                                            "Practical Guide for UI Design",
+                                            overflow: TextOverflow.ellipsis,
+                                            fontSize: AppFontSize.large,
+                                            color: AppColor.purple,
+                                            isBold: true,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.baseline,
+                                            textBaseline:
+                                                TextBaseline.alphabetic,
+                                            children: [
+                                              Icon(
+                                                Iconsax.user,
+                                                size: 14,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              AppText(
+                                                "N'Oel Naming",
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -176,8 +204,10 @@ class FormationListScreen extends StatelessWidget {
 class FormationDetail extends StatelessWidget {
   const FormationDetail({
     super.key,
+    this.image,
   });
 
+  final String? image;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -207,7 +237,7 @@ class FormationDetail extends StatelessWidget {
           ],
         ),
         Center(
-          child: buildFormationCover(),
+          child: buildFormationCover(image),
         ),
         const SizedBox(
           height: 20,
@@ -338,7 +368,7 @@ class FormationDetail extends StatelessWidget {
   }
 }
 
-Container buildFormationCover() {
+Container buildFormationCover(String? image) {
   return Container(
     width: 150,
     height: 200,
@@ -351,9 +381,9 @@ Container buildFormationCover() {
       ],
       borderRadius: BorderRadius.circular(15),
       color: Colors.white,
-      image: const DecorationImage(
+      image: DecorationImage(
         fit: BoxFit.cover,
-        image: AssetImage("assets/images/bookcover1.jpg"),
+        image: AssetImage(image ?? "assets/images/bookcover1.jpg"),
       ),
     ),
   );

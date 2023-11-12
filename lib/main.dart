@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackaton_ifm/layouts/scaffold_with_bottom_navbar.dart';
 import 'package:hackaton_ifm/providers/user_provider.dart';
 import 'package:hackaton_ifm/screens/lifeline_screen.dart';
 import 'package:hackaton_ifm/screens/on_boarding_screen.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: AppColor.offWhite,
         ),
-        home: const WelcomePage(),
+        home: const ScaffoldWithBottomNavbar(),
       ),
     );
   }
