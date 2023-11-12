@@ -6,7 +6,6 @@ import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:indexed/indexed.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 

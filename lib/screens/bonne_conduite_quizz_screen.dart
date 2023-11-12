@@ -76,8 +76,9 @@ class _BonneConduiteQuizzScreenState extends State<BonneConduiteQuizzScreen> {
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(color: Colors.white, width: 2),
                             color: Colors.white,
-                            image: const DecorationImage(
-                              image: AssetImage("assets/images/image1.jpg"),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  "assets/images/${quizData[selected_quiz]['image']}"),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -116,7 +117,7 @@ class _BonneConduiteQuizzScreenState extends State<BonneConduiteQuizzScreen> {
                       ],
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     SizedBox(
                       width: 350,
@@ -138,7 +139,7 @@ class _BonneConduiteQuizzScreenState extends State<BonneConduiteQuizzScreen> {
                       children: List.generate(
                           quizData[selected_quiz]["reponses"].length, (index) {
                         return Container(
-                          height: 50,
+                          // height: 50,
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           width: 350,
                           margin: const EdgeInsets.only(bottom: 15),
@@ -167,7 +168,7 @@ class _BonneConduiteQuizzScreenState extends State<BonneConduiteQuizzScreen> {
                       }),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Container(
                       height: 50,

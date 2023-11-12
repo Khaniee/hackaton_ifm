@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
   String objectifPrincipale = "";
+  List listeJobCategory = [];
   List objectif_realisations = [
     {
       "id": 1,
@@ -75,5 +76,14 @@ class UserProvider extends ChangeNotifier {
       "title": "Créer un compte",
     });
     return formatedData;
+  }
+
+  List getlisteJobCategory() {
+    return listeJobCategory;
+  }
+
+  void setJobCategory(List listejob) {
+    listeJobCategory = listejob;
+    notifyListeners();
   }
 }
