@@ -7,6 +7,33 @@ Uuid uuid = const Uuid();
 
 class CurrentUserProvider extends ChangeNotifier {
   String objectifPrincipale = "";
+  List listeJobCategory = [];
+  // List objectif_realisations = [
+  //   {
+  //     "id": 1,
+  //     "type": "realisation",
+  //     "title": "Réussir ma licence",
+  //     "description": "Je suis très heureuse d'avoir eu cette victoire",
+  //     "image": "image1.jpg",
+  //   },
+  //   {
+  //     "id": 2,
+  //     "type": "realisation",
+  //     "title": "Devenir Peintre",
+  //     "description": "Je suis très heureusee merci à tous !",
+  //     "image": "image2.jpg",
+  //   },
+  //   {
+  //     "id": 3,
+  //     "type": "step",
+  //     "title": "Réussir ma licence",
+  //   },
+  //   {
+  //     "id": 4,
+  //     "type": "step",
+  //     "title": "Devenir Peintre",
+  //   },
+  // ];
   List objectif_realisations = [];
   Map user = {
     "name": "Khanie",
@@ -77,5 +104,14 @@ class CurrentUserProvider extends ChangeNotifier {
       "title": "Création du compte",
     });
     return formatedData;
+  }
+
+  List getlisteJobCategory() {
+    return listeJobCategory;
+  }
+
+  void setJobCategory(List listejob) {
+    listeJobCategory = listejob;
+    notifyListeners();
   }
 }

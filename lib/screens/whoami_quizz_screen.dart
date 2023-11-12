@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hackaton_ifm/data/QuizJob.dart';
+import 'package:hackaton_ifm/providers/user_provider.dart';
 import 'package:hackaton_ifm/screens/whoami_summary_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
 import 'package:hackaton_ifm/widgets/response_elt.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 class WhoAmIQuizzScreen extends StatefulWidget {
   const WhoAmIQuizzScreen({super.key});
@@ -27,6 +29,7 @@ class _WhoAmIQuizzScreenState extends State<WhoAmIQuizzScreen> {
   List choicesCategory = [];
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.red,
@@ -185,6 +188,7 @@ class _WhoAmIQuizzScreenState extends State<WhoAmIQuizzScreen> {
                                       .length));
                               // print("etooooooooooooo");
                               // print(listeUnique);
+                              userProvider.setJobCategory(listeUnique);
                               Navigator.push(
                                 context,
                                 PageTransition(

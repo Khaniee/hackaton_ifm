@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Container(
                   height: MediaQuery.of(context).size.height / 1.5,
                   width: double.maxFinite,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       color: AppColor.purple,
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(250),
@@ -50,18 +50,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 40,
                     ),
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 110,
+                      height: 110,
+                      padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.white,
                       ),
+                      child: Image.asset("assets/images/logo3.png"),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     const Text(
-                      "Learn Life",
+                      "Moralia",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -85,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 40,
                             ),
                             const Text(
-                              "Bienvenue dans Learn Life",
+                              "Bienvenue dans Moralia",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
