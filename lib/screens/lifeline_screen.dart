@@ -2,13 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
-import 'package:hackaton_ifm/data/TimeLineData.dart';
 import 'package:hackaton_ifm/providers/user_provider.dart';
 import 'package:hackaton_ifm/screens/create_realisation_screen.dart';
 import 'package:hackaton_ifm/utils/color.dart';
-import 'package:hackaton_ifm/utils/fontsize.dart';
 import 'package:hackaton_ifm/widgets/single_timeline.dart';
 import 'package:hackaton_ifm/widgets/text.dart';
 import 'package:iconsax/iconsax.dart';
@@ -16,6 +12,8 @@ import 'package:indexed/indexed.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
+
+import '../widgets/event_form.dart';
 
 class LifelineScreen extends StatefulWidget {
   const LifelineScreen({super.key});
@@ -27,8 +25,6 @@ class LifelineScreen extends StatefulWidget {
 class _LifelineState extends State<LifelineScreen> {
   StateMachineController? controller;
   SMIInput<double>? inputValue;
-  List<String> objectifVisibility = ["Public", "Privé"];
-  String selectedObjectif = "Public";
 
   @override
   void initState() {
@@ -172,22 +168,49 @@ class _LifelineState extends State<LifelineScreen> {
                 Positioned(
                   bottom: -20,
                   right: 10,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColor.red,
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: () {
-                      showAddEventBottomSheet(context,
-                          isPrincipal: objectifPrincipal.isEmpty);
-                    },
-                    icon: const Icon(Iconsax.add),
-                    label: AppText(
-                      objectifPrincipal.isEmpty
-                          ? "Ajouter un objectif principal"
-                          : "Ajouter un objectif",
-                      color: AppColor.white,
-                    ),
+                  child: Row(
+                    children: [
+                      if (objectifPrincipal.isNotEmpty) ...[
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColor.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              showAddEventBottomSheet(
+                                context,
+                                isPrincipal: true,
+                              );
+                            },
+                            icon: const Icon(
+                              Iconsax.edit,
+                              color: AppColor.purple,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                      ],
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.red,
+                          foregroundColor: Colors.white,
+                        ),
+                        onPressed: () {
+                          showAddEventBottomSheet(context,
+                              isPrincipal: objectifPrincipal.isEmpty);
+                        },
+                        icon: const Icon(Iconsax.add),
+                        label: AppText(
+                          objectifPrincipal.isEmpty
+                              ? "Ajouter un objectif principal"
+                              : "Ajouter un objectif",
+                          color: AppColor.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -202,6 +225,7 @@ class _LifelineState extends State<LifelineScreen> {
                   children: List.generate(timelineData.length, (index) {
                     // if(timelineData[index]["type"] == "step"){
                     return SingleTimeline(
+                      event: timelineData[index],
                       title: timelineData[index]["title"],
                       image: timelineData[index]["type"] != "step"
                           ? timelineData[index]["image"]
@@ -220,190 +244,36 @@ class _LifelineState extends State<LifelineScreen> {
       ),
     );
   }
+}
 
-  final TextEditingController titleInputController = TextEditingController();
-
-  Future<dynamic> showAddEventBottomSheet(
-    BuildContext context, {
-    bool isPrincipal = false,
-  }) {
-    UserProvider userProvider =
-        Provider.of<UserProvider>(context, listen: false);
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (context) => BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-        child: Container(
-          padding: EdgeInsets.only(
-            top: 15,
-            left: 15,
-            right: 15,
-            // bottom: MediaQuery.of(context).viewInsets.bottom + 15,
+Future<dynamic> showAddEventBottomSheet(
+  BuildContext context, {
+  bool isPrincipal = false,
+  Map? event,
+}) {
+  return showModalBottomSheet(
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (context) => BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+      child: Container(
+        padding: const EdgeInsets.only(
+          top: 15,
+          left: 15,
+          right: 15,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(20),
           ),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(20),
-            ),
-            color: AppColor.white.withOpacity(0.7),
-          ),
-          child: StatefulBuilder(
-            builder: (context, setState) => Form(
-              child: Container(
-                padding: EdgeInsets.only(
-                  top: 15,
-                  left: 15,
-                  right: 15,
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 15,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (isPrincipal) ...[
-                      const Center(
-                        child: Icon(
-                          Iconsax.star_1,
-                          size: 64,
-                          color: AppColor.purple,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      )
-                    ],
-                    if (isPrincipal)
-                      const Center(
-                        child: AppText(
-                          "MON OBJECTIF PRINCIPAL",
-                          fontSize: AppFontSize.large,
-                          isBold: true,
-                          color: AppColor.purple,
-                        ),
-                      )
-                    else
-                      const AppText(
-                        "Ajouter un objectif",
-                        fontSize: AppFontSize.large,
-                        isBold: true,
-                        color: AppColor.purple,
-                      ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                      controller: titleInputController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Titre obligatoire";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.grey.shade300,
-                        prefixIcon: const Icon(
-                          Iconsax.star,
-                          color: AppColor.purple,
-                        ),
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        hintText: "Entrer le titre ici",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    if (!isPrincipal) ...[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Text("Visibilité"),
-                          // Expanded(child: SizedBox()),
-                          SizedBox(
-                            width: 150,
-                            height: 60,
-                            child: DropdownButtonFormField<String>(
-                              isDense: true,
-                              // iconSize: 12,
-                              alignment: Alignment.bottomCenter,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.grey.shade300,
-                                // labelStyle:
-                                //     TextStyle(color: Colors.grey.shade500),
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                ),
-                                prefixIcon: selectedObjectif == "Public"
-                                    ? const Icon(
-                                        Iconsax.global,
-                                        color: AppColor.purple,
-                                      )
-                                    : const Icon(Iconsax.lock,
-                                        color: AppColor.purple),
-                              ),
-                              hint: Text(selectedObjectif),
-                              style: const TextStyle(
-                                color: AppColor.textColor,
-                              ),
-                              items: objectifVisibility.map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (elt) {
-                                setState(() {
-                                  selectedObjectif = elt!;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      )
-                    ],
-                    SizedBox(
-                      height: 50,
-                      width: double.maxFinite,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColor.red,
-                        ),
-                        onPressed: () {
-                          if (isPrincipal) {
-                            userProvider.updateObjectifPrincipale(
-                                titleInputController.text);
-                          } else {
-                            userProvider
-                                .createObjectif(titleInputController.text);
-                          }
-                          titleInputController.text = "";
-                          Navigator.pop(context);
-                        },
-                        child: Text(isPrincipal
-                            ? "Posez mon Objectif Principal"
-                            : "Créer Objectif"),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          color: AppColor.white.withOpacity(0.7),
+        ),
+        child: EventForm(
+          isPrincipal: isPrincipal,
+          event: event,
         ),
       ),
-    );
-  }
+    ),
+  );
 }

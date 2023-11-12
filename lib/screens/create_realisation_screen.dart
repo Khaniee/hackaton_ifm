@@ -10,7 +10,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class CreateRealisationScreen extends StatefulWidget {
-  const CreateRealisationScreen({super.key});
+  const CreateRealisationScreen({super.key, this.realisation});
+
+  final Map? realisation;
 
   @override
   State<CreateRealisationScreen> createState() =>
@@ -27,9 +29,23 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
       TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.realisation != null && widget.realisation!["id"] != null) {
+      titleEditingController.text = widget.realisation!["title"];
+      descriptionEditingController.text = widget.realisation!["description"];
+      isPicked = widget.realisation!["image"] == null;
+      imageFile = widget.realisation!["image"];
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
+    bool isModification =
+        widget.realisation != null && widget.realisation!["id"] != null;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColor.offWhite,
@@ -224,9 +240,25 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     )),
                                 onPressed: () {
-                                  _createRealisation(userProvider);
+                                  if (isModification) {
+                                    userProvider.updateRealisation(
+                                      widget.realisation!["id"],
+                                      titleEditingController.text,
+                                      descriptionEditingController.text,
+                                      imageFile,
+                                    );
+                                  } else {
+                                    userProvider.createRealisation(
+                                      titleEditingController.text,
+                                      descriptionEditingController.text,
+                                      imageFile,
+                                    );
+                                  }
+                                  Navigator.pop(context);
                                 },
-                                child: const Text("Publier")),
+                                child: Text(isModification
+                                    ? "Sauvegarder"
+                                    : "Publier")),
                           ),
                         ),
                       ],
@@ -239,14 +271,6 @@ class _CreateRealisationScreenState extends State<CreateRealisationScreen> {
         ),
       ),
     );
-  }
-
-  void _createRealisation(UserProvider userProvider) {
-    Map realisation = {
-      "title": titleEditingController.text,
-      "description": descriptionEditingController,
-      "image": imageFile
-    };
   }
 
   void pickImage() async {
