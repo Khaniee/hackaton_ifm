@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height / 1.5,
+                  height: MediaQuery.of(context).size.height / 2,
                   width: double.maxFinite,
                   decoration: BoxDecoration(
                       color: AppColor.purple,

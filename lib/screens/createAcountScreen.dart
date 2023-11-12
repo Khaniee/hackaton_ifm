@@ -37,7 +37,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             child: Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height / 1.5,
+                  height: MediaQuery.of(context).size.height / 2,
                   width: double.maxFinite,
                   decoration: const BoxDecoration(
                       color: AppColor.purple,
