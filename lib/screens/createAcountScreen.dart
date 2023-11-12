@@ -61,18 +61,20 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       height: 20,
                     ),
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 110,
+                      height: 110,
+                      padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.white,
                       ),
+                      child: Image.asset("assets/images/logo3.png"),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
                     const Text(
-                      "Learn Life",
+                      "LifeLearn",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -98,7 +100,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                                 height: 40,
                               ),
                               const Text(
-                                "Bienvenue dans Learn Life",
+                                "Bienvenue dans LifeLearn",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,

@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 5,
                     ),
                     const Text(
-                      "Moralia",
+                      "LifeLearn",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 40,
                             ),
                             const Text(
-                              "Bienvenue dans Moralia",
+                              "Bienvenue dans LifeLearn",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
