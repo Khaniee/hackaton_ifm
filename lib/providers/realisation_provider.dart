@@ -8,7 +8,7 @@ class RealisationProvider extends ChangeNotifier {
     {
       "id": uuid.v4(),
       "username": "Rakoto Jean Ba",
-      "avatar": "https://i.pravatar.cc/300",
+      "avatar": "https://i.pravatar.cc/300?img=3",
       "type": "realisation",
       "title": "Réussir avec mes amis",
       "description": "Je suis trop content pour cette petite victoire.",
@@ -17,7 +17,7 @@ class RealisationProvider extends ChangeNotifier {
     {
       "id": uuid.v4(),
       "username": "Tsitana Ny Avo",
-      "avatar": "https://i.pravatar.cc/300?img=3",
+      "avatar": "https://i.pravatar.cc/300?img=9",
       "type": "realisation",
       "title": "Première Victoire",
       "description": "La réussite viens avec une dure labeur",
@@ -26,7 +26,7 @@ class RealisationProvider extends ChangeNotifier {
     {
       "id": uuid.v4(),
       "username": "Jean Baptiste",
-      "avatar": "https://i.pravatar.cc/300?img=6",
+      "avatar": "https://i.pravatar.cc/300?img=12",
       "type": "realisation",
       "title": "Prouesse Tenue",
       "description": "Pour ma premier participation, on reste souder!",
