@@ -1,29 +1,40 @@
 {
-    "project_info": {
-        "project_number": "35017197319",
-        "project_id": "hackaton-ifm",
-        "storage_bucket": "hackaton-ifm.appspot.com"
-    },
-    "client": [
-        {
-            "client_info": {
-                "mobilesdk_app_id": "1:35017197319:android:ce8640ea773123d6cda7a2",
-                "android_client_info": {
-                    "package_name": "com.example.hackaton_ifm"
-                }
-            },
-            "oauth_client": [],
-            "api_key": [
-                {
-                    "current_key": "AIzaSyC51v_Ci90JPVUwIQcjW1UAd-Aeqydr7QM"
-                }
-            ],
-            "services": {
-                "appinvite_service": {
-                    "other_platform_oauth_client": []
-                }
-            }
+  "project_info": {
+    "project_number": "35017197319",
+    "firebase_url": "https://hackaton-ifm-default-rtdb.firebaseio.com",
+    "project_id": "hackaton-ifm",
+    "storage_bucket": "hackaton-ifm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35017197319:android:ce8640ea773123d6cda7a2",
+        "android_client_info": {
+          "package_name": "com.example.hackaton_ifm"
         }
-    ],
-    "configuration_version": "1"
+      },
+      "oauth_client": [
+        {
+          "client_id": "35017197319-1tbsf6t812lgoi23i0pf6druk2raeqd1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC51v_Ci90JPVUwIQcjW1UAd-Aeqydr7QM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35017197319-1tbsf6t812lgoi23i0pf6druk2raeqd1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 }
